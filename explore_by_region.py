@@ -29,7 +29,7 @@ print(dataset.describe())
 #print('\nMEAN VALUES')
 #print(dataset.mean())
 
-print('\n GENERAL DF')
+print('\n DATE, REGION, TOT CASES, CURRENTLY INFECTED, NEW INFECTED')
 print(dataset.iloc[lambda x: x.index > 419][
 ['data', 'denominazione_regione', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi']
 ].to_string())
@@ -44,6 +44,8 @@ print(dataset.iloc[lambda x: x.index > 419][
 # ]
 ################################################################################################################################
 # monitoring hospitals in fvg
+print('\n MONITORING SITUATION IN FVG HOSPITALS')
+
 last_date = '2020-03-16 17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_attualmente_positivi', 'totale_ospedalizzati', 'terapia_intensiva']]
 
@@ -59,6 +61,8 @@ print('\n')
 
 ################################################################################################################################
 # total cases by region
+print('\n HOSPITALS\' SITUATION IN WHOLE ITALY')
+
 print(last_tot_cases.to_string(index=False))
 
 counts_tot_cases_by_region = [
@@ -93,7 +97,7 @@ plt.plot(days, data_fvg['nuovi_attualmente_positivi'], c='orange', linestyle='-'
 plt.plot(days, data_fvg['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, data_fvg['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('Total Cases','Currently Infected','New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
-plt.savefig('./fvg-curves.png', dpi = 250)
+plt.savefig('./fvg-curves-1.png', dpi = 250)
 plt.clf()
 
 plt.xlabel('Time (days after 24/02)')
