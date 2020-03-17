@@ -70,10 +70,18 @@ regressor = LinearRegression()
 #regressor = Ridge()
 #regressor = Lasso()
 
-regressor.fit(x,y)
-Y_pred_train = regressor.predict(x) # useful for plot
+# train on data without last few days
+minus_last_days_to_skip = -4
+x_train = x[:minus_last_days_to_skip]
+x_test = x[minus_last_days_to_skip:]
+y_train = y[:minus_last_days_to_skip]
+y_test = y[minus_last_days_to_skip:]
 
-score = regressor.score(x, y) # R2 score
+regressor.fit(x_train,y_train)
+Y_pred_train = regressor.predict(x_train) # useful for plot
+Y_pred_test = regressor.predict(x_test)
+
+score = regressor.score(x_train, y_train) # R2 score
 growth = regressor.coef_[0] # coefficients reg.coef_ is an array in general, when fitting multidimensional X values
 n0 = regressor.intercept_ # intercepts
 
@@ -82,15 +90,29 @@ print('\nSCORE:\n', score)
 print('COEFFICIENT:\n', growth)
 print('INTERCEPT:\n', n0)
 
-#Training
-plt.scatter(x,y,color = 'red')
-plt.plot(x,Y_pred_train,color = 'blue')
+#plot of fit vs data
+plt.scatter(x_train,y_train,color = 'red')
+plt.scatter(x_test,y_test,color = 'lightcoral')
+plt.plot(x_train,Y_pred_train,color = 'blue')
+plt.plot(x_test,Y_pred_test,color = 'blue')
 plt.title('Epidemic curve Fit')
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Log of Total Cases')
-plt.legend(('fit (R2={:.3f})'.format(score), 'data'),loc='upper right', bbox_to_anchor=(1.05, 1.15))
+#plt.legend(('fit (R2={:.3f})'.format(score), 'data'),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/epidemic-curve-fit-TRAIN.png', dpi=250)
+plt.clf()
+
+plt.scatter(x_train,np.exp(y_train),color = 'red')
+plt.scatter(x_test,np.exp(y_test),color = 'lightcoral')
+plt.plot(x_train,np.exp(Y_pred_train),color = 'blue')
+plt.plot(x_test,np.exp(Y_pred_test),color = 'blue')
+plt.title('Epidemic curve Fit')
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('Total Cases')
+#plt.legend(('fit (R2={:.3f})'.format(score), 'data'),loc='upper right', bbox_to_anchor=(1.05, 1.15))
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/epidemic-curve-fit-TRAIN-2.png', dpi=250)
 plt.clf()
 
 last = len(dataset['totale_casi'])
