@@ -97,6 +97,7 @@ plt.plot(days, data_fvg['nuovi_attualmente_positivi'], c='orange', linestyle='-'
 plt.plot(days, data_fvg['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, data_fvg['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('Total Cases','Currently Infected','New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./fvg/fvg-curves-1.png', dpi = 250)
 plt.clf()
 
@@ -106,6 +107,7 @@ plt.plot(days, data_fvg['nuovi_attualmente_positivi'], c='orange', linestyle='-'
 plt.plot(days, data_fvg['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, data_fvg['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./fvg/fvg-curves-2.png', dpi = 250)
 plt.clf()
 
@@ -115,6 +117,7 @@ plt.plot(days, data_fvg['nuovi_attualmente_positivi'], c='orange', linestyle='-'
 plt.plot(days, data_fvg['totale_ospedalizzati'], c='grey', linestyle='-')
 plt.plot(days, data_fvg['terapia_intensiva'], c='black', linestyle='-')
 plt.legend(('New Infected','In Hospital','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./fvg/fvg-curves-3-hospital.png', dpi = 250)
 plt.clf()
 
