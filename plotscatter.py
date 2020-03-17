@@ -14,19 +14,19 @@ print('\nINFO')
 dataset.info()
 print('\nDESCRIPTION')
 print(dataset.describe())
-n_rows_head = 18
-print('\nFIRST ' + str(n_rows_head) + ' ENTRIES')
-print(dataset.head(n_rows_head))
-print('\nMINIMUM VALUES')
-print(dataset.min())
-print('\nMAXIMUM VALUES')
-print(dataset.max())
-print('\nMEAN VALUES')
-print(dataset.mean())
+#n_rows_head = 18
+#print('\nFIRST ' + str(n_rows_head) + ' ENTRIES')
+#print(dataset.head(n_rows_head))
+#print('\nMINIMUM VALUES')
+#print(dataset.min())
+#print('\nMAXIMUM VALUES')
+#print(dataset.max())
+#print('\nMEAN VALUES')
+#print(dataset.mean())
 
-print('\n GENERAL DF')
+print('\n DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED')
 print(dataset[
-['data', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi']
+['data', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
 ].to_string())
 
 ################################################################################################################################
@@ -174,6 +174,16 @@ plt.plot(days, fatality_rate_1, c='darkslateblue', linestyle='-')
 plt.plot(days, fatality_rate_2, c='saddlebrown', linestyle='-')
 plt.legend(('dec/tot.cases','dec/(dec+heal)'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.savefig('./curves/fatality-rate.png', dpi = 250)
+plt.clf()
+
+# outcome of closed cases (%)
+recovery_rate = dataset['dimessi_guariti']/(dataset['deceduti'] + dataset['dimessi_guariti'])
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('Recovery vs Fatality Rate (%)')
+plt.plot(days, recovery_rate, c='limegreen', linestyle='-')
+plt.plot(days, fatality_rate_2, c='saddlebrown', linestyle='-')
+plt.legend(('heal/(dec+heal)','dec/(dec+heal)'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+plt.savefig('./curves/outcome-closed-cases.png', dpi = 250)
 plt.clf()
 
 # calculate growth factor

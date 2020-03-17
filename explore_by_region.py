@@ -29,9 +29,9 @@ print(dataset.describe())
 #print('\nMEAN VALUES')
 #print(dataset.mean())
 
-print('\n DATE, REGION, TOT CASES, CURRENTLY INFECTED, NEW INFECTED')
-print(dataset.iloc[lambda x: x.index > 419][
-['data', 'denominazione_regione', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi']
+print('\n DATE, REGION, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED')
+print(dataset.iloc[lambda x: x.index > 440][
+['data', 'denominazione_regione', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
 ].to_string())
 
 ################################################################################################################################
@@ -46,7 +46,7 @@ print(dataset.iloc[lambda x: x.index > 419][
 # monitoring hospitals in fvg
 print('\n MONITORING SITUATION IN FVG HOSPITALS')
 
-last_date = '2020-03-16 17:00:00'
+last_date = '2020-03-17 17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_attualmente_positivi', 'totale_ospedalizzati', 'terapia_intensiva']]
 
 print('\nTotale casi in fvg')
