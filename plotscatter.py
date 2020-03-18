@@ -81,7 +81,11 @@ regressor.fit(x_train,y_train)
 Y_pred_train = regressor.predict(x_train) # useful for plot
 Y_pred_test = regressor.predict(x_test)
 
-score = regressor.score(x_train, y_train) # R2 score
+join_x = np.concatenate((x_train, x_test), axis=None)
+join_y = np.concatenate((y_train, y_test), axis=None)
+join_pred = np.concatenate((Y_pred_train, Y_pred_test), axis=None)
+
+score = regressor.score(join_x[:, np.newaxis], join_y) # R2 score
 growth = regressor.coef_[0] # coefficients reg.coef_ is an array in general, when fitting multidimensional X values
 n0 = regressor.intercept_ # intercepts
 
@@ -89,10 +93,6 @@ print('\nSCORE:\n', score)
 #print('Y TRUE - Y PREDICTED DIFFERENCES:\n', y - Y_pred_train) # difference between true and predicted values
 print('COEFFICIENT:\n', growth)
 print('INTERCEPT:\n', n0)
-
-join_x = np.concatenate((x_train, x_test), axis=None)
-join_y = np.concatenate((y_train, y_test), axis=None)
-join_pred = np.concatenate((Y_pred_train, Y_pred_test), axis=None)
 
 #plot of fit vs data
 plt.scatter(join_x,join_y,color = 'red')
