@@ -71,7 +71,7 @@ regressor = LinearRegression()
 #regressor = Lasso()
 
 # train on data without last few days
-minus_last_days_to_skip = -4
+minus_last_days_to_skip = -5
 x_train = x[:minus_last_days_to_skip]
 x_test = x[minus_last_days_to_skip:]
 y_train = y[:minus_last_days_to_skip]
@@ -116,10 +116,10 @@ plt.savefig('./curves/epidemic-curve-fit-TRAIN-2.png', dpi=250)
 plt.clf()
 
 last = len(dataset['totale_casi'])
-print('\nPREDICTION FOR DAY',last)
+print('\nEXPONENTIAL PREDICTION FOR DAY',last)
 pred = regressor.predict([[last]])
 print(pred)
-print('number of predicted infected', np.exp(pred))
+print('number of predicted cases', np.exp(pred))
 
 ################################################################################################################################
 
