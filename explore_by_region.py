@@ -30,7 +30,7 @@ print(dataset.describe())
 #print(dataset.mean())
 
 print('\n DATE, REGION, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED')
-print(dataset.iloc[lambda x: x.index > 440][
+print(dataset.iloc[lambda x: x.index > 482][
 ['data', 'denominazione_regione', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
 ].to_string())
 
@@ -46,7 +46,7 @@ print(dataset.iloc[lambda x: x.index > 440][
 # monitoring hospitals in fvg
 print('\n MONITORING SITUATION IN FVG HOSPITALS')
 
-last_date = '2020-03-18 17:00:00'
+last_date = '2020-03-19 17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_attualmente_positivi', 'totale_ospedalizzati', 'terapia_intensiva']]
 
 print('\nTotale casi in fvg')
@@ -62,8 +62,11 @@ print('\n')
 ################################################################################################################################
 # total cases by region
 print('\n HOSPITALS\' SITUATION IN WHOLE ITALY')
-
 print(last_tot_cases.to_string(index=False))
+print('\n GENERAL SITUATION IN WHOLE ITALY')
+last_tot_general = dataset.loc[dataset['data']==last_date][['denominazione_regione','nuovi_attualmente_positivi','dimessi_guariti', 'deceduti']]
+print(last_tot_general.to_string(index=False))
+################################################################################################################################
 
 counts_tot_cases_by_region = [
 (region, last_tot_cases.loc[last_tot_cases['denominazione_regione']==region]['totale_casi']) for region in np.unique(dataset['denominazione_regione'])
