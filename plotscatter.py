@@ -71,7 +71,7 @@ regressor = LinearRegression()
 #regressor = Lasso()
 
 # train on data without last few days
-minus_last_days_to_skip = -5
+minus_last_days_to_skip = -1
 x_train = x[:minus_last_days_to_skip]
 x_test = x[minus_last_days_to_skip:]
 y_train = y[:minus_last_days_to_skip]
