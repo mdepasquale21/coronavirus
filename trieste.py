@@ -41,7 +41,7 @@ dataset.info()
 # monitoring Trieste
 print('\n MONITORING SITUATION IN TRIESTE')
 
-last_date = '2020-03-19 17:00:00'
+last_date = '2020-03-20 17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provincia','totale_casi']]
 
 print('\nTotale casi a Trieste')
