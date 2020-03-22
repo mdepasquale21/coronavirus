@@ -27,7 +27,7 @@ print(dataset.describe())
 print('\n DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED')
 print(dataset[
 ['data', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
-].to_string())
+].to_string(index=False))
 
 # Write national report to file
 report = open("./covid-19-national-report.txt", "w")
