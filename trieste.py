@@ -49,12 +49,19 @@ casi_trieste = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Tr
 #for max
 casi_bologna = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Bologna']['totale_casi']
 
+#for laura
+casi_vercelli = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Vercelli']['totale_casi']
+
 print('\nTotale casi a Trieste')
 print(casi_trieste.to_string(index=False))
 print('\n')
 
 print('\nTotale casi a Bologna')
 print(casi_bologna.to_string(index=False))
+print('\n')
+
+print('\nTotale casi a Vercelli')
+print(casi_vercelli.to_string(index=False))
 print('\n')
 
 # Write trieste's situation to file
