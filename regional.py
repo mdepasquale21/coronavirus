@@ -66,6 +66,19 @@ print(last_tot_cases.to_string(index=False))
 print('\n GENERAL SITUATION IN WHOLE ITALY')
 last_tot_general = dataset.loc[dataset['data']==last_date][['denominazione_regione','nuovi_attualmente_positivi','dimessi_guariti', 'deceduti']]
 print(last_tot_general.to_string(index=False))
+
+# Write reports of hospital's situation to file
+report_h = open("./covid-19-regional-hospital-report.txt", "w")
+report_h.write("REPORT of REGIONAL HOSPITAL'S SITUATION\n")
+report_h.write(last_tot_cases.to_string(index=False))
+report_h.close()
+
+# Write reports of general situation to file
+report_g = open("./covid-19-regional-general-report.txt", "w")
+report_g.write("REPORT of REGIONAL SITUATION\n")
+report_g.write(last_tot_general.to_string(index=False))
+report_g.close()
+
 ################################################################################################################################
 
 counts_tot_cases_by_region = [

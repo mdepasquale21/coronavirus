@@ -29,6 +29,14 @@ print(dataset[
 ['data', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
 ].to_string())
 
+# Write national report to file
+report = open("./covid-19-national-report.txt", "w")
+report.write("REPORT of DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED\n")
+report.write(dataset[
+['data', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
+].to_string(index=False))
+report.close()
+
 ################################################################################################################################
 # features = [
 # data, stato, ricoverati_con_sintomi, terapia_intensiva, totale_ospedalizzati, isolamento_domiciliare,

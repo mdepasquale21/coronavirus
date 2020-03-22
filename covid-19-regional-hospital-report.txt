@@ -1,0 +1,23 @@
+REPORT of REGIONAL HOSPITAL'S SITUATION
+ denominazione_regione  totale_casi  totale_attualmente_positivi  totale_ospedalizzati  terapia_intensiva
+               Abruzzo          529                          494                   229                 44
+            Basilicata           66                           66                    19                  7
+          P.A. Bolzano          621                          600                   157                 30
+              Calabria          235                          225                    89                 16
+              Campania          844                          793                   320                 87
+        Emilia Romagna         6705                         5661                  2532                265
+ Friuli Venezia Giulia          790                          666                   189                 37
+                 Lazio         1190                         1086                   661                 70
+               Liguria         1436                         1159                   727                129
+             Lombardia        25515                        17370                  9351               1093
+                Marche         2153                         1997                   883                141
+                Molise           61                           47                    27                  6
+              Piemonte         3752                         3506                  2277                301
+                Puglia          675                          642                   242                 33
+              Sardegna          330                          321                    81                 16
+               Sicilia          490                          458                   254                 48
+               Toscana         2012                         1905                   866                202
+           P.A. Trento          782                          720                   272                 39
+                Umbria          462                          447                   121                 29
+         Valle d'Aosta          313                          304                    77                 15
+                Veneto         4617                         4214                  1191                249

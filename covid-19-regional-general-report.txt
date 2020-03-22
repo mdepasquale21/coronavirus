@@ -1,0 +1,23 @@
+REPORT of REGIONAL SITUATION
+ denominazione_regione  nuovi_attualmente_positivi  dimessi_guariti  deceduti
+               Abruzzo                          72               13        22
+            Basilicata                          14                0         0
+          P.A. Bolzano                          70                1        20
+              Calabria                          24                5         5
+              Campania                          91               29        22
+        Emilia Romagna                         572              329       715
+ Friuli Venezia Giulia                         111               82        42
+                 Lazio                         174               54        50
+               Liguria                         158              125       152
+             Lombardia                        1950             5050      3095
+                Marche                         153                2       154
+                Molise                           8                7         7
+              Piemonte                         262                8       238
+                Puglia                          91                4        29
+              Sardegna                          33                5         4
+               Sicilia                          79               26         6
+               Toscana                         192               35        72
+           P.A. Trento                         120               34        28
+                Umbria                          63                5        10
+         Valle d'Aosta                          47                1         8
+                Veneto                         537              257       146

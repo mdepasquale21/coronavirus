@@ -44,9 +44,17 @@ print('\n MONITORING SITUATION IN TRIESTE')
 last_date = '2020-03-21 17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provincia','totale_casi']]
 
+casi_trieste = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Trieste']['totale_casi']
+
 print('\nTotale casi a Trieste')
-print(last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Trieste']['totale_casi'].to_string(index=False))
+print(casi_trieste.to_string(index=False))
 print('\n')
+
+# Write trieste's situation to file
+report_g = open("./covid-19-trieste-report.txt", "w")
+report_g.write("Totale Casi a Trieste\n")
+report_g.write(casi_trieste.to_string(index=False))
+report_g.close()
 
 ################################################################################################################################
 
