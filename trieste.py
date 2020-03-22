@@ -46,8 +46,15 @@ last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provinc
 
 casi_trieste = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Trieste']['totale_casi']
 
+#for max
+casi_bologna = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Bologna']['totale_casi']
+
 print('\nTotale casi a Trieste')
 print(casi_trieste.to_string(index=False))
+print('\n')
+
+print('\nTotale casi a Bologna')
+print(casi_bologna.to_string(index=False))
 print('\n')
 
 # Write trieste's situation to file
