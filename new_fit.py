@@ -81,7 +81,7 @@ plt.plot(days,result_logistic.best_fit,color='black')
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Total Cases')
 plt.legend((
-"ExponentialModel $\chi^2 = {:.2E}$".format(result_exp.redchi),
+"Exponential $\chi^2 = {:.2E}$".format(result_exp.redchi),
 "Logistic $\chi^2 = {:.2E}$".format(result_logistic.redchi),
 'data'
 ),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=2)
@@ -112,7 +112,7 @@ plt.plot(prediction_days, result_logistic.eval(pred_params_logistic, x=predictio
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Total Cases')
 plt.legend((
-"ExponentialModel $\chi^2 = {:.2E}$".format(result_exp.redchi),
+"Exponential $\chi^2 = {:.2E}$".format(result_exp.redchi),
 "Logistic $\chi^2 = {:.2E}$".format(result_logistic.redchi),
 'data'
 ),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=2)
