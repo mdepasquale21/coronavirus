@@ -84,3 +84,32 @@ plt.legend((
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./FIT/fit_3.png', dpi=250)
 plt.clf()
+
+#predictions for future days
+n_more_days = 10
+more_days = [len(days)+i for i in range(1,n_more_days+1)]
+prediction_days = np.concatenate((days, more_days), axis=None)
+
+#evaluate params for new days fit
+pred_params_exp = model_exp.make_params(decay = result_exp.params["decay"].value,
+                                   amplitude = result_exp.params["amplitude"].value)
+
+pred_params_logistic = model_logistic.make_params(sigma = result_logistic.params["sigma"].value,
+                                   amplitude = result_logistic.params["amplitude"].value,
+                                   center = result_logistic.params["center"].value)
+
+# plot exponential fit vs logistic fit with predictions for new days
+plt.scatter(days,y,color='red')
+plt.plot(prediction_days, result_exp.eval(pred_params_exp, x=prediction_days),color='blue')
+plt.plot(prediction_days, result_logistic.eval(pred_params_logistic, x=prediction_days),color='black')
+#plt.title('Epidemic curve vs Fit')
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('Total Cases')
+plt.legend((
+"ExponentialModel $\chi^2 = {:.2E}$".format(result_exp.redchi),
+"Logistic $\chi^2 = {:.2E}$".format(result_logistic.redchi),
+'data'
+),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=2)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./FIT/fit_4.png', dpi=250)
+plt.clf()
