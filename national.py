@@ -47,89 +47,15 @@ report.close()
 
 days = [t[0] for t in enumerate(dataset['data'])]
 
-# create scatter plot
+# total cases
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Total Cases')
 plt.title('Epidemic curve')
 plt.scatter(days, dataset['totale_casi'], c='red')
-#plt.scatter(days, dataset['totale_casi'], c='black')
 plt.legend(('data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/epidemic-curve.png', dpi = 250)
 plt.clf()
-
-plt.xlabel('Time (days after 24/02)')
-plt.ylabel('Log of Total Cases')
-plt.title('Epidemic curve')
-plt.scatter(days, np.log(dataset['totale_casi']), c='red')
-plt.legend(('log data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
-plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/epidemic-curve-log.png', dpi = 250)
-plt.clf()
-
-from sklearn.linear_model import LinearRegression, Ridge, Lasso
-
-x = [[days[i]] for i in range(len(days))] #make a 2-D array
-#print(x)
-y= np.log(dataset['totale_casi'])
-
-#Building the model
-regressor = LinearRegression()
-#regressor = Ridge()
-#regressor = Lasso()
-
-# train on data without last few days
-minus_last_days_to_skip = -1
-x_train = x[:minus_last_days_to_skip]
-x_test = x[minus_last_days_to_skip:]
-y_train = y[:minus_last_days_to_skip]
-y_test = y[minus_last_days_to_skip:]
-
-regressor.fit(x_train,y_train)
-Y_pred_train = regressor.predict(x_train) # useful for plot
-Y_pred_test = regressor.predict(x_test)
-
-join_x = np.concatenate((x_train, x_test), axis=None)
-join_y = np.concatenate((y_train, y_test), axis=None)
-join_pred = np.concatenate((Y_pred_train, Y_pred_test), axis=None)
-
-score = regressor.score(join_x[:, np.newaxis], join_y) # R2 score
-growth = regressor.coef_[0] # coefficients reg.coef_ is an array in general, when fitting multidimensional X values
-n0 = regressor.intercept_ # intercepts
-
-print('\nSCORE:\n', score)
-#print('Y TRUE - Y PREDICTED DIFFERENCES:\n', y - Y_pred_train) # difference between true and predicted values
-print('COEFFICIENT:\n', growth)
-print('INTERCEPT:\n', n0)
-
-#plot of fit vs data
-plt.scatter(join_x,join_y,color = 'red')
-plt.plot(join_x,join_pred,color = 'blue')
-plt.title('Epidemic curve vs Fit')
-plt.xlabel('Time (days after 24/02)')
-plt.ylabel('Log of Total Cases')
-plt.legend(('fit (R2={:.3f})'.format(score), 'log data'),loc='upper right', bbox_to_anchor=(1.05, 1.15))
-plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/epidemic-curve-fit-TRAIN.png', dpi=250)
-plt.clf()
-
-plt.scatter(join_x,np.exp(join_y),color = 'red')
-plt.plot(join_x,np.exp(join_pred),color = 'blue')
-plt.title('Epidemic curve vs Fit')
-plt.xlabel('Time (days after 24/02)')
-plt.ylabel('Total Cases')
-plt.legend(('fit (R2={:.3f})'.format(score), 'data'),loc='upper right', bbox_to_anchor=(1.05, 1.15))
-plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/epidemic-curve-fit-TRAIN-2.png', dpi=250)
-plt.clf()
-
-last = len(dataset['totale_casi'])
-print('\nEXPONENTIAL PREDICTION FOR DAY',last)
-pred = regressor.predict([[last]])
-print(pred)
-print('number of predicted cases', np.exp(pred))
-
-################################################################################################################################
 
 # new infected
 plt.xlabel('Time (days after 24/02)')
