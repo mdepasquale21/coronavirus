@@ -46,7 +46,9 @@ plt.ylabel('Log of Total Cases')
 plt.legend(('fit (R2={:.3f})'.format(score), 'log data'),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./FIT/fit_1.png', dpi=250)
+plt.tight_layout()
 plt.clf()
+plt.close()
 
 plt.scatter(x,y,color = 'red')
 plt.plot(x,np.exp(log_y_pred),color = 'blue')
@@ -55,8 +57,10 @@ plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Total Cases')
 plt.legend(('fit (R2={:.3f})'.format(score), 'data'),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.tight_layout()
 plt.savefig('./FIT/fit_2.png', dpi=250)
 plt.clf()
+plt.close()
 ################################################################################################################################
 
 #Building the exponential model
@@ -82,8 +86,10 @@ plt.legend((
 'data'
 ),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.tight_layout()
 plt.savefig('./FIT/fit_3.png', dpi=250)
 plt.clf()
+plt.close()
 
 #predictions for future days
 n_more_days = 10
@@ -111,5 +117,7 @@ plt.legend((
 'data'
 ),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.tight_layout()
 plt.savefig('./FIT/fit_4.png', dpi=250)
 plt.clf()
+plt.close()
