@@ -54,7 +54,7 @@ plt.title('Epidemic curve')
 plt.scatter(days, dataset['totale_casi'], c='red')
 plt.legend(('data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/epidemic-curve.png', dpi = 250)
+plt.savefig('./curves/curve-total-cases.png', dpi = 250)
 plt.clf()
 
 # new infected
@@ -64,7 +64,7 @@ plt.title('New infected curve')
 plt.scatter(days, dataset['nuovi_attualmente_positivi'], c='orange')
 plt.legend(('data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/new-infected-curve.png', dpi = 250)
+plt.savefig('./curves/curve-new-infected.png', dpi = 250)
 plt.clf()
 
 # healed people
@@ -74,7 +74,7 @@ plt.title('Healed curve')
 plt.scatter(days, dataset['dimessi_guariti'], c='green')
 plt.legend(('data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/healed-curve.png', dpi = 250)
+plt.savefig('./curves/curve-healed.png', dpi = 250)
 plt.clf()
 
 # deceased people
@@ -84,23 +84,10 @@ plt.title('Deceased curve')
 plt.scatter(days, dataset['deceduti'], c='blueviolet')
 plt.legend(('data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/deceased-curve.png', dpi = 250)
+plt.savefig('./curves/curve-deceased.png', dpi = 250)
 plt.clf()
 
 ################################################################################################################################
-
-#everything
-plt.xlabel('Time (days after 24/02)')
-plt.ylabel('Values')
-#plt.title('All curves')
-plt.plot(days, dataset['totale_casi'], c='red', linestyle='-')
-plt.plot(days, dataset['nuovi_attualmente_positivi'], c='orange', linestyle='-')
-plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
-plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
-plt.legend(('Total Cases','New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
-plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/all-curves.png', dpi = 250)
-plt.clf()
 
 # new positives, healed, deceased
 plt.xlabel('Time (days after 24/02)')
@@ -110,7 +97,7 @@ plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/almost-all-curves.png', dpi = 250)
+plt.savefig('./curves/curves-almost.png', dpi = 250)
 plt.clf()
 
 print('\ntotale_casi = totale_attualmente_positivi + dimessi_guariti + deceduti\n')
@@ -120,12 +107,11 @@ plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
 plt.plot(days, dataset['totale_casi'], c='red', linestyle='-')
 plt.plot(days, dataset['totale_attualmente_positivi'], c='pink', linestyle='-')
-plt.plot(days, dataset['nuovi_attualmente_positivi'], c='orange', linestyle='-')
 plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
-plt.legend(('Total Cases','Currently Infected','New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+plt.legend(('Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./curves/all-case-all-current-curves.png', dpi = 250)
+plt.savefig('./curves/curves-all.png', dpi = 250)
 plt.clf()
 
 ################################################################################################################################
