@@ -116,6 +116,41 @@ plt.clf()
 
 ################################################################################################################################
 
+# stacked bar chart
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+plt.ylabel('Values')
+plt.xticks(rotation=90)
+plt.xlabel('Time (days after 24/02)')
+plt.title('Distribution of Ill People')
+plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
+plt.bar(days, dataset['isolamento_domiciliare'], color='yellow')
+plt.bar(days, dataset['ricoverati_con_sintomi'], color='peru')
+plt.bar(days, dataset['terapia_intensiva'], color='grey')
+plt.legend(('at Home','at Hospital','Intensive Therapy'),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=3)
+plt.tight_layout()
+plt.savefig('./curves/bar-chart-ill.png', dpi=250)
+plt.clf()
+plt.close()
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+plt.ylabel('Values')
+plt.xticks(rotation=90)
+plt.xlabel('Time (days after 24/02)')
+plt.title('Distribution of Cases')
+plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
+plt.bar(days, dataset['totale_attualmente_positivi'], color='pink')
+plt.bar(days, dataset['dimessi_guariti'], color='green')
+plt.bar(days, dataset['deceduti'], color='blueviolet')
+plt.legend(('Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=3)
+plt.tight_layout()
+plt.savefig('./curves/bar-chart-cases.png', dpi=250)
+plt.clf()
+plt.close()
+
+################################################################################################################################
+
 # fatality rate
 fatality_rate_1 = dataset['deceduti']/dataset['totale_casi']
 fatality_rate_2 = dataset['deceduti']/(dataset['deceduti'] + dataset['dimessi_guariti'])
