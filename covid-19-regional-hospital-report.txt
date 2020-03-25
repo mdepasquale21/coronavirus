@@ -1,23 +1,23 @@
 REPORT of REGIONAL HOSPITAL'S SITUATION
  denominazione_regione  totale_casi  totale_attualmente_positivi  totale_ospedalizzati  terapia_intensiva
-               Abruzzo          689                          622                   291                 57
-            Basilicata           92                           91                    26                 12
-          P.A. Bolzano          781                          699                   204                 38
-              Calabria          319                          304                   109                 21
-              Campania         1101                          992                   526                181
-        Emilia Romagna         9254                         7711                  3265                291
- Friuli Venezia Giulia          992                          848                   244                 49
-                 Lazio         1728                         1545                   841                 94
-               Liguria         2116                         1692                   950                147
-             Lombardia        30703                        19868                 10905               1194
-                Marche         2736                         2497                  1011                149
-                Molise           73                           55                    34                  7
-              Piemonte         5515                         5124                  2764                360
-                Puglia         1005                          940                   374                 57
-              Sardegna          421                          395                    99                 19
-               Sicilia          846                          799                   310                 60
-               Toscana         2699                         2519                  1162                244
-           P.A. Trento         1110                          975                   357                 49
-                Umbria          648                          624                   148                 43
-         Valle d'Aosta          400                          379                    91                 20
-                Veneto         5948                         5351                  1622                304
+               Abruzzo          813                          738                   307                 59
+            Basilicata          113                          112                    34                 14
+          P.A. Bolzano          858                          748                   230                 40
+              Calabria          351                          333                   116                 23
+              Campania         1199                         1072                   441                123
+        Emilia Romagna        10054                         8256                  3474                294
+ Friuli Venezia Giulia         1139                          911                   252                 52
+                 Lazio         1901                         1675                   906                101
+               Liguria         2305                         1826                  1074                147
+             Lombardia        32346                        20591                 11262               1236
+                Marche         2934                         2639                  1086                148
+                Molise           73                           53                    33                  7
+              Piemonte         6024                         5556                  2925                381
+                Puglia         1093                         1023                   413                 64
+              Sardegna          442                          412                   101                 19
+               Sicilia          994                          936                   339                 80
+               Toscana         2972                         2776                  1250                251
+           P.A. Trento         1222                         1058                   373                 65
+                Umbria          710                          686                   167                 44
+         Valle d'Aosta          401                          375                    95                 25
+                Veneto         6442                         5745                  1723                316
