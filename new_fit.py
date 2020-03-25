@@ -121,3 +121,32 @@ plt.tight_layout()
 plt.savefig('./FIT/fit_4.png', dpi=250)
 plt.clf()
 plt.close()
+
+#logistic model 5 days ago
+n_days = len(days)-5
+days_less = days[:n_days]
+y_less = y[:n_days]
+params_logistic_5_days_ago = model_logistic.guess(y_less, x=days_less)
+result_logistic_5_days_ago = model_logistic.fit(y_less, params_logistic_5_days_ago, x=days_less)
+
+pred_params_logistic_5_days_ago = model_logistic.make_params(sigma = result_logistic_5_days_ago.params["sigma"].value,
+                                   amplitude = result_logistic_5_days_ago.params["amplitude"].value,
+                                   center = result_logistic_5_days_ago.params["center"].value)
+
+# plot logistic fit vs logistic fit 5 days ago
+plt.scatter(days,y,color='red')
+plt.plot(prediction_days,result_logistic_5_days_ago.eval(pred_params_logistic_5_days_ago, x=prediction_days),color='brown')
+plt.plot(prediction_days, result_logistic.eval(pred_params_logistic, x=prediction_days),color='black')
+#plt.title('Epidemic curve vs Fit')
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('Total Cases')
+plt.legend((
+"Logistic (5 days ago) $\chi^2 = {:.2E}$".format(result_logistic_5_days_ago.redchi),
+"Logistic (now) $\chi^2 = {:.2E}$".format(result_logistic.redchi),
+'data'
+),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=2)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.tight_layout()
+plt.savefig('./FIT/fit_4_bis.png', dpi=250)
+plt.clf()
+plt.close()
