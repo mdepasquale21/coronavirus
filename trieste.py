@@ -36,12 +36,13 @@ dataset.info()
 #data,stato,codice_regione,denominazione_regione,
 #codice_provincia,denominazione_provincia,sigla_provincia,
 #lat,long,totale_casi
+#note_it, note_en
 # ]
 ################################################################################################################################
 # monitoring Trieste
 print('\n MONITORING SITUATION IN TRIESTE')
 
-last_date = '2020-03-25 17:00:00'
+last_date = '2020-03-25T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provincia','totale_casi']]
 
 casi_trieste = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Trieste']['totale_casi']

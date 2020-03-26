@@ -41,12 +41,13 @@ print(dataset.iloc[lambda x: x.index > 524][
 # data,stato,codice_regione,denominazione_regione,lat,long,
 # ricoverati_con_sintomi,terapia_intensiva,totale_ospedalizzati,isolamento_domiciliare,
 # totale_attualmente_positivi,nuovi_attualmente_positivi,dimessi_guariti,deceduti,totale_casi,tamponi
+# note_it, note_en
 # ]
 ################################################################################################################################
 # monitoring hospitals in fvg
 print('\n MONITORING SITUATION IN FVG HOSPITALS')
 
-last_date = '2020-03-25 17:00:00'
+last_date = '2020-03-25T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_attualmente_positivi', 'totale_ospedalizzati', 'terapia_intensiva']]
 
 print('\nTotale casi in fvg')
