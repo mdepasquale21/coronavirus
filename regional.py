@@ -30,7 +30,7 @@ print(dataset.describe())
 #print(dataset.mean())
 
 print('\n DATE, REGION, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED')
-print(dataset.iloc[lambda x: x.index > 650][
+print(dataset.iloc[lambda x: x.index > 629][
 ['data', 'denominazione_regione', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
 ].to_string())
 
