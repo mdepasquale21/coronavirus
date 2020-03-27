@@ -114,6 +114,19 @@ plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-all.png', dpi = 250)
 plt.clf()
 
+#tamponi vs total cases and total currently positive
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('Values')
+plt.plot(days, dataset['tamponi'], c='darkgrey', linestyle='-')
+plt.plot(days, dataset['totale_casi'], c='red', linestyle='-')
+plt.plot(days, dataset['totale_attualmente_positivi'], c='pink', linestyle='-')
+plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
+plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
+plt.legend(('# Tests','Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/curves-with-tamponi.png', dpi = 250)
+plt.clf()
+
 ################################################################################################################################
 
 # stacked bar chart
