@@ -114,7 +114,7 @@ plt.plot(days, data_fvg['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, data_fvg['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./fvg/fvg-curves-1.png', dpi = 250)
+plt.savefig('./region-fvg/fvg-curves-1.png', dpi = 250)
 plt.clf()
 
 plt.xlabel('Time (days after 24/02)')
@@ -124,7 +124,7 @@ plt.plot(days, data_fvg['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, data_fvg['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./fvg/fvg-curves-2.png', dpi = 250)
+plt.savefig('./region-fvg/fvg-curves-2.png', dpi = 250)
 plt.clf()
 
 plt.xlabel('Time (days after 24/02)')
@@ -134,7 +134,7 @@ plt.plot(days, data_fvg['totale_ospedalizzati'], c='grey', linestyle='-')
 plt.plot(days, data_fvg['terapia_intensiva'], c='black', linestyle='-')
 plt.legend(('New Infected','In Hospital','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./fvg/fvg-curves-3-hospital.png', dpi = 250)
+plt.savefig('./region-fvg/fvg-curves-3-hospital.png', dpi = 250)
 plt.clf()
 
 plt.xlabel('Time (days after 24/02)')
@@ -144,7 +144,7 @@ plt.plot(days, data_fvg['totale_ospedalizzati'], c='grey', linestyle='-')
 plt.plot(days, data_fvg['terapia_intensiva'], c='black', linestyle='-')
 plt.legend(('at Home','In Hospital','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./fvg/fvg-curves-4-hospital.png', dpi = 250)
+plt.savefig('./region-fvg/fvg-curves-4-hospital.png', dpi = 250)
 plt.clf()
 
 tot_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['totale_casi']
@@ -161,7 +161,7 @@ plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
 for j,f in zip(days, tot_fvg):
     plt.bar(j, f, color='red')
 plt.tight_layout()
-plt.savefig('./fvg/fvg-total-cases.png', dpi=250)
+plt.savefig('./region-fvg/fvg-total-cases.png', dpi=250)
 plt.clf()
 plt.close()
 
@@ -176,6 +176,56 @@ plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
 for j,f in zip(days, new_fvg):
     plt.bar(j, f, color='orange')
 plt.tight_layout()
-plt.savefig('./fvg/fvg-new-cases.png', dpi=250)
+plt.savefig('./region-fvg/fvg-new-cases.png', dpi=250)
 plt.clf()
 plt.close()
+
+##############################################################################################################################
+
+#curves for other regions
+regions_data_list = [
+dataset.loc[dataset['denominazione_regione']=='Abruzzo'],
+dataset.loc[dataset['denominazione_regione']=='Basilicata'],
+dataset.loc[dataset['denominazione_regione']=='P.A. Bolzano'],
+dataset.loc[dataset['denominazione_regione']=='Calabria'],
+dataset.loc[dataset['denominazione_regione']=='Campania'],
+dataset.loc[dataset['denominazione_regione']=='Emilia Romagna'],
+dataset.loc[dataset['denominazione_regione']=='Lazio'],
+dataset.loc[dataset['denominazione_regione']=='Liguria'],
+dataset.loc[dataset['denominazione_regione']=='Lombardia'],
+dataset.loc[dataset['denominazione_regione']=='Marche'],
+dataset.loc[dataset['denominazione_regione']=='Molise'],
+dataset.loc[dataset['denominazione_regione']=='Piemonte'],
+dataset.loc[dataset['denominazione_regione']=='Puglia'],
+dataset.loc[dataset['denominazione_regione']=='Sardegna'],
+dataset.loc[dataset['denominazione_regione']=='Sicilia'],
+dataset.loc[dataset['denominazione_regione']=='Toscana'],
+dataset.loc[dataset['denominazione_regione']=='P.A. Trento'],
+dataset.loc[dataset['denominazione_regione']=='Umbria'],
+dataset.loc[dataset['denominazione_regione']=='Valle d\'Aosta'],
+dataset.loc[dataset['denominazione_regione']=='Veneto']
+]
+
+for region in regions_data_list:
+    nome = np.unique(region['denominazione_regione'])[0]
+
+    plt.xlabel('Time (days after 24/02)')
+    plt.ylabel('Values for '+nome)
+    plt.plot(days, region['totale_casi'], c='red', linestyle='-')
+    plt.plot(days, region['totale_attualmente_positivi'], c='pink', linestyle='-')
+    plt.plot(days, region['dimessi_guariti'], c='green', linestyle='-')
+    plt.plot(days, region['deceduti'], c='blueviolet', linestyle='-')
+    plt.legend(('Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+    plt.savefig('./region-others/'+nome+'-curves-1.png', dpi = 250)
+    plt.clf()
+
+    plt.xlabel('Time (days after 24/02)')
+    plt.ylabel('Values for '+nome)
+    plt.plot(days, region['nuovi_attualmente_positivi'], c='orange', linestyle='-')
+    plt.plot(days, region['dimessi_guariti'], c='green', linestyle='-')
+    plt.plot(days, region['deceduti'], c='blueviolet', linestyle='-')
+    plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+    plt.savefig('./region-others/'+nome+'-curves-2.png', dpi = 250)
+    plt.clf()
