@@ -66,9 +66,13 @@ print(casi_vercelli.to_string(index=False))
 print('\n')
 
 # Write trieste's situation to file
-report_g = open("./covid-19-trieste-report.txt", "w")
+report_g = open("./covid-19-ts-bo-vc-report.txt", "w")
 report_g.write("Totale Casi a Trieste\n")
 report_g.write(casi_trieste.to_string(index=False))
+report_g.write('\nTotale casi a Bologna\n')
+report_g.write(casi_bologna.to_string(index=False))
+report_g.write('\nTotale casi a Vercelli\n')
+report_g.write(casi_vercelli.to_string(index=False))
 report_g.close()
 
 ################################################################################################################################
