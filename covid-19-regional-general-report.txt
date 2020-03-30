@@ -1,23 +1,23 @@
 REPORT of REGIONAL SITUATION
  denominazione_regione  nuovi_attualmente_positivi  dimessi_guariti  deceduti
-               Abruzzo                         142               36        88
-            Basilicata                          19                1         4
-          P.A. Bolzano                         105              116        64
-              Calabria                          54               12        25
-              Campania                         149               86       117
-        Emilia Romagna                         571             1141      1443
- Friuli Venezia Giulia                          21              241        98
-                 Lazio                         181              208       136
-               Liguria                         193              420       377
-             Lombardia                         883             9255      6360
-                Marche                         161               12       386
-                Molise                           2               18         9
-              Piemonte                         417              254       684
-                Puglia                          74               31        86
-              Sardegna                          13               29        27
-               Sicilia                          88               65        65
-               Toscana                         275              121       215
-           P.A. Trento                          59              172       129
-                Umbria                          -1               95        31
-         Valle d'Aosta                          71                2        43
-                Veneto                         338              715       392
+               Abruzzo                           0               74       102
+            Basilicata                          11                1         5
+          P.A. Bolzano                          64              153        74
+              Calabria                          25               14        31
+              Campania                         183               88       125
+        Emilia Romagna                         231             1227      1538
+ Friuli Venezia Giulia                         -32              285       107
+                 Lazio                         135              267       150
+               Liguria                         104              437       397
+             Lombardia                        -386            10337      6818
+                Marche                          91               16       417
+                Molise                           7               18         9
+              Piemonte                         387              308       749
+                Puglia                         153               36        91
+              Sardegna                          40               32        28
+               Sicilia                          78               71        76
+               Toscana                         264              131       231
+           P.A. Trento                          64              178       147
+                Umbria                         -63              184        33
+         Valle d'Aosta                         -21               16        50
+                Veneto                         313              747       413
