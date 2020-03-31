@@ -62,6 +62,16 @@ plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curve-new-infected.png', dpi = 250)
 plt.clf()
 
+# total variations of infected
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('Total variations of Infected')
+plt.title('Total variations of infected curve')
+plt.scatter(days, dataset['variazione_totale_positivi'], c='grey')
+plt.legend(('data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/curve-variations-of-infected.png', dpi = 250)
+plt.clf()
+
 # healed people
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Healed')
@@ -90,12 +100,14 @@ plt.ylabel('Values')
 plt.plot(days, dataset['nuovi_positivi'], c='orange', linestyle='-')
 plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
-plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+plt.plot(days, dataset['variazione_totale_positivi'], c='grey',  linestyle='-')
+plt.legend(('New Infected','Healed','Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-almost.png', dpi = 250)
 plt.clf()
 
 print('\ntotale_casi = totale_positivi + dimessi_guariti + deceduti\n')
+print('\nvariazione_totale_positivi = nuovi_positivi - dimessi_guariti_oggi - deceduti_oggi\n')
 
 #total cases and total currently positive
 plt.xlabel('Time (days after 24/02)')
@@ -193,6 +205,20 @@ plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
 plt.bar(days, dataset['nuovi_positivi'], color='orange')
 plt.tight_layout()
 plt.savefig('./curves/bar-chart-new-cases.png', dpi=250)
+plt.clf()
+plt.close()
+
+# total variations of infected
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+plt.ylabel('Total variations of Infected')
+plt.xticks(rotation=90)
+plt.xlabel('Time (days after 24/02)')
+plt.title('Total Variations of Infected Every Day')
+plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
+plt.bar(days, dataset['variazione_totale_positivi'], color='grey')
+plt.tight_layout()
+plt.savefig('./curves/bar-chart-variations-of-cases.png', dpi=250)
 plt.clf()
 plt.close()
 

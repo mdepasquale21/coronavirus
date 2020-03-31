@@ -116,7 +116,8 @@ plt.ylabel('Values for FVG')
 plt.plot(days, data_fvg['nuovi_positivi'], c='orange', linestyle='-')
 plt.plot(days, data_fvg['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, data_fvg['deceduti'], c='blueviolet', linestyle='-')
-plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+plt.plot(days, data_fvg['variazione_totale_positivi'], c='grey',  linestyle='-')
+plt.legend(('New Infected','Healed','Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./region-fvg/fvg-curves-2.png', dpi = 250)
 plt.clf()
@@ -143,6 +144,7 @@ plt.clf()
 
 tot_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['totale_casi']
 new_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['nuovi_positivi']
+var_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['variazione_totale_positivi']
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
@@ -174,6 +176,21 @@ plt.savefig('./region-fvg/fvg-new-cases.png', dpi=250)
 plt.clf()
 plt.close()
 
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+plt.ylabel('Total Variations of Infected People')
+#plt.ylim(0,10)
+plt.xticks(rotation=90)
+plt.xlabel('Time (days after 24/02)')
+plt.title('Total Variations of Cases in FVG Every Day')
+plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
+for j,f in zip(days, var_fvg):
+    plt.bar(j, f, color='grey')
+plt.tight_layout()
+plt.savefig('./region-fvg/fvg-total-variation-cases.png', dpi=250)
+plt.clf()
+plt.close()
+
 ##############################################################################################################################
 
 #curves for other regions
@@ -201,12 +218,7 @@ dataset.loc[dataset['denominazione_regione']=='Veneto']
 ]
 
 for region in regions_data_list:
-    try:
-        print(np.unique(region['denominazione_regione']))
-        nome = np.unique(region['denominazione_regione'])[0]
-    except:
-         print(np.unique(region['denominazione_regione']))
-         print('no data for this region')
+    nome = np.unique(region['denominazione_regione'])[0]
 
     plt.xlabel('Time (days after 24/02)')
     plt.ylabel('Values for '+nome)
@@ -224,7 +236,8 @@ for region in regions_data_list:
     plt.plot(days, region['nuovi_positivi'], c='orange', linestyle='-')
     plt.plot(days, region['dimessi_guariti'], c='green', linestyle='-')
     plt.plot(days, region['deceduti'], c='blueviolet', linestyle='-')
-    plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+    plt.plot(days, region['variazione_totale_positivi'], c='grey',  linestyle='-')
+    plt.legend(('New Infected','Healed','Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./region-others/'+nome+'-curves-2.png', dpi = 250)
     plt.clf()
