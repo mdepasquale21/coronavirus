@@ -21,7 +21,7 @@ dataset.info()
 #print(dataset.describe())
 #n_rows_head = 10
 #print('\nFIRST ' + str(n_rows_head) + ' ENTRIES')
-#print(dataset.head(n_rows_head))
+#print(dataset.head(n_rows_head).to_string(index=False))
 #print('\nMINIMUM VALUES')
 #print(dataset.min())
 #print('\nMAXIMUM VALUES')
@@ -32,17 +32,11 @@ dataset.info()
 ################################################################################################################################
 
 ################################################################################################################################
-# features = [
-#data,stato,codice_regione,denominazione_regione,
-#codice_provincia,denominazione_provincia,sigla_provincia,
-#lat,long,totale_casi
-#note_it, note_en
-# ]
 ################################################################################################################################
 # monitoring Trieste
 print('\n MONITORING SITUATION IN TRIESTE')
 
-last_date = '2020-03-30T17:00:00'
+last_date = '2020-03-31T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provincia','totale_casi']]
 
 casi_trieste = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Trieste']['totale_casi']

@@ -14,9 +14,9 @@ print('\nINFO')
 dataset.info()
 print('\nDESCRIPTION')
 print(dataset.describe())
-#n_rows_head = 18
-#print('\nFIRST ' + str(n_rows_head) + ' ENTRIES')
-#print(dataset.head(n_rows_head))
+#n_rows_head = 10
+#print('\nLAST ' + str(n_rows_head) + ' ENTRIES')
+#print(dataset.tail(n_rows_head).to_string(index=False))
 #print('\nMINIMUM VALUES')
 #print(dataset.min())
 #print('\nMAXIMUM VALUES')
@@ -24,25 +24,20 @@ print(dataset.describe())
 #print('\nMEAN VALUES')
 #print(dataset.mean())
 
-print('\n DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED')
+print('\n DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, VARIATION OF TOTAL INFECTED, HEALED, DECEASED')
 print(dataset[
-['data', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
+['data', 'totale_casi', 'totale_positivi', 'nuovi_positivi', 'variazione_totale_positivi', 'dimessi_guariti', 'deceduti']
 ].to_string(index=False))
 
 # Write national report to file
 report = open("./covid-19-national-report.txt", "w")
-report.write("REPORT of DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, HEALED, DECEASED\n")
+report.write("REPORT of DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, VARIATION OF TOTAL INFECTED, HEALED, DECEASED\n")
 report.write(dataset[
-['data', 'totale_casi', 'totale_attualmente_positivi', 'nuovi_attualmente_positivi', 'dimessi_guariti', 'deceduti']
+['data', 'totale_casi', 'totale_positivi', 'nuovi_positivi', 'variazione_totale_positivi', 'dimessi_guariti', 'deceduti']
 ].to_string(index=False))
 report.close()
 
 ################################################################################################################################
-# features = [
-# data, stato, ricoverati_con_sintomi, terapia_intensiva, totale_ospedalizzati, isolamento_domiciliare,
-# totale_attualmente_positivi, nuovi_attualmente_positivi,
-# dimessi_guariti, deceduti, totale_casi, tamponi, note_it, note_en
-# ]
 ################################################################################################################################
 
 days = [t[0] for t in enumerate(dataset['data'])]
@@ -61,7 +56,7 @@ plt.clf()
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('New Infected')
 plt.title('New infected curve')
-plt.scatter(days, dataset['nuovi_attualmente_positivi'], c='orange')
+plt.scatter(days, dataset['nuovi_positivi'], c='orange')
 plt.legend(('data',),loc='upper right', bbox_to_anchor=(1.05, 1.15))
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curve-new-infected.png', dpi = 250)
@@ -92,7 +87,7 @@ plt.clf()
 # new positives, healed, deceased
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
-plt.plot(days, dataset['nuovi_attualmente_positivi'], c='orange', linestyle='-')
+plt.plot(days, dataset['nuovi_positivi'], c='orange', linestyle='-')
 plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('New Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
@@ -100,13 +95,13 @@ plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-almost.png', dpi = 250)
 plt.clf()
 
-print('\ntotale_casi = totale_attualmente_positivi + dimessi_guariti + deceduti\n')
+print('\ntotale_casi = totale_positivi + dimessi_guariti + deceduti\n')
 
 #total cases and total currently positive
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
 plt.plot(days, dataset['totale_casi'], c='red', linestyle='-')
-plt.plot(days, dataset['totale_attualmente_positivi'], c='pink', linestyle='-')
+plt.plot(days, dataset['totale_positivi'], c='pink', linestyle='-')
 plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
@@ -119,7 +114,7 @@ plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
 plt.plot(days, dataset['tamponi'], c='darkgrey', linestyle='-')
 plt.plot(days, dataset['totale_casi'], c='red', linestyle='-')
-plt.plot(days, dataset['totale_attualmente_positivi'], c='pink', linestyle='-')
+plt.plot(days, dataset['totale_positivi'], c='pink', linestyle='-')
 plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
 plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('# Tests','Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
@@ -153,7 +148,7 @@ plt.xticks(rotation=90)
 plt.xlabel('Time (days after 24/02)')
 plt.title('Distribution of Cases')
 plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
-plt.bar(days, dataset['totale_attualmente_positivi'], color='pink')
+plt.bar(days, dataset['totale_positivi'], color='pink')
 plt.bar(days, dataset['dimessi_guariti'], color='green')
 plt.bar(days, dataset['deceduti'], color='blueviolet')
 plt.legend(('Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.17), ncol=3)
@@ -182,7 +177,7 @@ plt.xticks(rotation=90)
 plt.xlabel('Time (days after 24/02)')
 plt.title('Currently Infected Every Day')
 plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
-plt.bar(days, dataset['totale_attualmente_positivi'], color='pink')
+plt.bar(days, dataset['totale_positivi'], color='pink')
 plt.tight_layout()
 plt.savefig('./curves/bar-chart-total-currently-infected.png', dpi=250)
 plt.clf()
@@ -195,7 +190,7 @@ plt.xticks(rotation=90)
 plt.xlabel('Time (days after 24/02)')
 plt.title('New Infected Every Day')
 plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
-plt.bar(days, dataset['nuovi_attualmente_positivi'], color='orange')
+plt.bar(days, dataset['nuovi_positivi'], color='orange')
 plt.tight_layout()
 plt.savefig('./curves/bar-chart-new-cases.png', dpi=250)
 plt.clf()
@@ -230,13 +225,12 @@ plt.clf()
 growth_factor = []
 
 for i, _ in enumerate(dataset['totale_casi']):
-    if(i < 2):
+    if(i < 1):
         print('\nCalculating growth factors: skipping index',i)
     else:
-        n2 = dataset['totale_casi'].iloc[i]
-        n1 = dataset['totale_casi'].iloc[i-1]
-        n0 = dataset['totale_casi'].iloc[i-2]
-        growth_factor.append((n2-n1)/(n1-n0))
+        n1 = dataset['nuovi_positivi'].iloc[i]
+        n0 = dataset['nuovi_positivi'].iloc[i-1]
+        growth_factor.append(n1/n0)
 
 print('\ngrowth factors day by day')
 print(growth_factor)
@@ -245,8 +239,8 @@ print(growth_factor)
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Growth Factor')
 plt.title('Growth Factor [dN(t+1)/dN(t)]')
-plt.plot(days[2:], growth_factor, 'ko')
-plt.plot(days[2:], growth_factor, color='grey', linestyle='--')
+plt.plot(days[1:], growth_factor, 'ko')
+plt.plot(days[1:], growth_factor, color='grey', linestyle='--')
 #plt.legend(('data','linked'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/growth-factor.png', dpi = 250)
