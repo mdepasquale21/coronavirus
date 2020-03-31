@@ -42,7 +42,7 @@ print(dataset.iloc[lambda x: x.index > 671][
 print('\n MONITORING SITUATION IN FVG HOSPITALS')
 
 last_date = '2020-03-31T17:00:00'
-last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_positivi', 'totale_ospedalizzati', 'terapia_intensiva']]
+last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_positivi', 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']]
 
 print('\nTotale casi in fvg')
 print(last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['totale_casi'].to_string(index=False))
@@ -59,7 +59,7 @@ print('\n')
 print('\n HOSPITALS\' SITUATION IN WHOLE ITALY')
 print(last_tot_cases.to_string(index=False))
 print('\n GENERAL SITUATION IN WHOLE ITALY')
-last_tot_general = dataset.loc[dataset['data']==last_date][['denominazione_regione','nuovi_positivi','dimessi_guariti', 'deceduti']]
+last_tot_general = dataset.loc[dataset['data']==last_date][['denominazione_regione','nuovi_positivi','dimessi_guariti', 'deceduti', 'variazione_totale_positivi']]
 print(last_tot_general.to_string(index=False))
 
 # Write reports of hospital's situation to file
@@ -183,7 +183,7 @@ dataset.loc[dataset['denominazione_regione']=='Basilicata'],
 dataset.loc[dataset['denominazione_regione']=='P.A. Bolzano'],
 dataset.loc[dataset['denominazione_regione']=='Calabria'],
 dataset.loc[dataset['denominazione_regione']=='Campania'],
-dataset.loc[dataset['denominazione_regione']=='Emilia Romagna'],
+dataset.loc[dataset['denominazione_regione']=='Emilia-Romagna'],
 dataset.loc[dataset['denominazione_regione']=='Lazio'],
 dataset.loc[dataset['denominazione_regione']=='Liguria'],
 dataset.loc[dataset['denominazione_regione']=='Lombardia'],
@@ -201,7 +201,12 @@ dataset.loc[dataset['denominazione_regione']=='Veneto']
 ]
 
 for region in regions_data_list:
-    nome = np.unique(region['denominazione_regione'])[0]
+    try:
+        print(np.unique(region['denominazione_regione']))
+        nome = np.unique(region['denominazione_regione'])[0]
+    except:
+         print(np.unique(region['denominazione_regione']))
+         print('no data for this region')
 
     plt.xlabel('Time (days after 24/02)')
     plt.ylabel('Values for '+nome)
