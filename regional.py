@@ -41,7 +41,7 @@ print(dataset.iloc[lambda x: x.index > 671][
 # monitoring hospitals in fvg
 print('\n MONITORING SITUATION IN FVG HOSPITALS')
 
-last_date = '2020-03-31T17:00:00'
+last_date = '2020-04-01T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_positivi', 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']]
 
 print('\nTotale casi in fvg')
