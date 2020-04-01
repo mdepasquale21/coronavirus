@@ -94,14 +94,55 @@ plt.clf()
 
 ################################################################################################################################
 
+new_healed = []
+new_deceased = []
+
+for i in range(len(dataset)):
+    if(i < 1):
+        new_healed.append(
+        dataset['dimessi_guariti'].iloc[i]
+        )
+        new_deceased.append(
+        dataset['deceduti'].iloc[i]
+        )
+    else:
+        #otherwise calculate daily healed and deceased
+        new_healed.append(
+        dataset['dimessi_guariti'].iloc[i]-dataset['dimessi_guariti'].iloc[i-1]
+        )
+        new_deceased.append(
+        dataset['deceduti'].iloc[i]-dataset['deceduti'].iloc[i-1]
+        )
+
+
+print('\nBILANCIO DI IERI')
+print('NUOVI POSITIVI')
+print(dataset['nuovi_positivi'].iloc[-2])
+print('NUOVI GUARITI')
+print(new_healed[-2])
+print('NUOVI DECEDUTI')
+print(new_healed[-2])
+print('VARIAZIONE TOTALE POSITIVI')
+print(dataset['variazione_totale_positivi'].iloc[-2])
+
+print('\nBILANCIO DI OGGI')
+print('NUOVI POSITIVI')
+print(dataset['nuovi_positivi'].iloc[-1])
+print('NUOVI GUARITI')
+print(new_healed[-1])
+print('NUOVI DECEDUTI')
+print(new_healed[-1])
+print('VARIAZIONE TOTALE POSITIVI')
+print(dataset['variazione_totale_positivi'].iloc[-1])
+
 # new positives, healed, deceased
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
 plt.plot(days, dataset['nuovi_positivi'], c='orange', linestyle='-')
-plt.plot(days, dataset['dimessi_guariti'], c='green', linestyle='-')
-plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
+plt.plot(days, new_healed, c='limegreen', linestyle='-')
+plt.plot(days, new_deceased, c='purple', linestyle='-')
 plt.plot(days, dataset['variazione_totale_positivi'], c='grey',  linestyle='-')
-plt.legend(('New Infected','Healed','Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+plt.legend(('New Infected','New Healed','New Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-almost.png', dpi = 250)
 plt.clf()
