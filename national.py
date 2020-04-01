@@ -40,6 +40,8 @@ report.close()
 ################################################################################################################################
 ################################################################################################################################
 
+# curves
+
 days = [t[0] for t in enumerate(dataset['data'])]
 
 # total cases
@@ -93,6 +95,10 @@ plt.savefig('./curves/curve-deceased.png', dpi = 250)
 plt.clf()
 
 ################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+
+# calculate new healed and new deceased every day, not present in df
 
 new_healed = []
 new_deceased = []
@@ -157,7 +163,7 @@ report.write('\nVARIAZIONE TOTALE POSITIVI\n')
 report.write(str(dataset['variazione_totale_positivi'].iloc[-1]))
 report.close()
 
-# new positives, healed, deceased
+# new positives, new healed, new deceased and total variations
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
 plt.plot(days, dataset['nuovi_positivi'], c='orange', linestyle='-')
@@ -169,8 +175,14 @@ plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-almost.png', dpi = 250)
 plt.clf()
 
+################################################################################################################################
+################################################################################################################################
+################################################################################################################################
+
 print('\ntotale_casi = totale_positivi + dimessi_guariti + deceduti\n')
 print('\nvariazione_totale_positivi = nuovi_positivi - dimessi_guariti_oggi - deceduti_oggi\n')
+
+# comparison of more curves
 
 #total cases and total currently positive
 plt.xlabel('Time (days after 24/02)')
@@ -199,7 +211,8 @@ plt.clf()
 
 ################################################################################################################################
 
-# stacked bar chart
+# stacked bar charts
+
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
 plt.ylabel('Values')
@@ -231,6 +244,8 @@ plt.tight_layout()
 plt.savefig('./curves/bar-chart-cases.png', dpi=250)
 plt.clf()
 plt.close()
+
+# bar charts
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
@@ -285,6 +300,7 @@ plt.savefig('./curves/bar-chart-variations-of-cases.png', dpi=250)
 plt.clf()
 plt.close()
 
+################################################################################################################################
 ################################################################################################################################
 
 # fatality rate
