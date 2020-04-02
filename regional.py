@@ -86,55 +86,10 @@ plt.close()
 
 ##############################################################################################################################
 
-# curves for fvg
+# curve for fvg
 days = [t[0] for t in enumerate(np.unique(dataset['data']))]
+
 data_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']
-
-plt.xlabel('Time (days after 24/02)')
-plt.ylabel('Values for FVG')
-plt.plot(days, data_fvg['totale_casi'], c='red', linestyle='-')
-plt.plot(days, data_fvg['totale_positivi'], c='pink', linestyle='-')
-plt.plot(days, data_fvg['dimessi_guariti'], c='green', linestyle='-')
-plt.plot(days, data_fvg['deceduti'], c='blueviolet', linestyle='-')
-plt.legend(('Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
-plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./region-fvg/fvg-curves-1.png', dpi = 250)
-plt.clf()
-
-# new healed and new deceased fvg
-healed_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['dimessi_guariti']
-deceased_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['deceduti']
-
-new_healed_fvg = []
-new_deceased_fvg = []
-
-for i in range(len(healed_fvg)):
-    if(i < 1):
-        new_healed_fvg.append(
-        healed_fvg.iloc[i]
-        )
-        new_deceased_fvg.append(
-        deceased_fvg.iloc[i]
-        )
-    else:
-        #otherwise calculate daily healed and deceased
-        new_healed_fvg.append(
-        healed_fvg.iloc[i]-healed_fvg.iloc[i-1]
-        )
-        new_deceased_fvg.append(
-        deceased_fvg.iloc[i]-deceased_fvg.iloc[i-1]
-        )
-
-plt.xlabel('Time (days after 24/02)')
-plt.ylabel('Values for FVG')
-plt.plot(days, data_fvg['nuovi_positivi'], c='orange', linestyle='-')
-plt.plot(days, new_healed_fvg, c='limegreen', linestyle='-')
-plt.plot(days, new_deceased_fvg, c='purple', linestyle='-')
-plt.plot(days, data_fvg['variazione_totale_positivi'], c='grey',  linestyle='-')
-plt.legend(('New Infected','New Healed','New Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
-plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./region-fvg/fvg-curves-2.png', dpi = 250)
-plt.clf()
 
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values for FVG')
@@ -143,7 +98,7 @@ plt.plot(days, data_fvg['totale_ospedalizzati'], c='grey', linestyle='-')
 plt.plot(days, data_fvg['terapia_intensiva'], c='black', linestyle='-')
 plt.legend(('at Home','In Hospital','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./region-fvg/fvg-curves-3-hospital.png', dpi = 250)
+plt.savefig('./region-fvg/fvg-curves-home-hospital.png', dpi = 250)
 plt.clf()
 
 ##############################################################################################################################
@@ -204,7 +159,7 @@ plt.close()
 ##############################################################################################################################
 ##############################################################################################################################
 
-# curves for other regions
+# curves for all regions
 regions_data_list = [dataset.loc[dataset['denominazione_regione']==region] for region in np.unique(dataset['denominazione_regione'])]
 
 for region in regions_data_list:
@@ -221,15 +176,33 @@ for region in regions_data_list:
     plt.savefig('./region-others/'+nome+'-curves-1.png', dpi = 250)
     plt.clf()
 
-    # new healed and new deceased
+    new_healed = []
+    new_deceased = []
+
+    for i in range(len(region['dimessi_guariti'])):
+        if(i < 1):
+            new_healed.append(
+            region['dimessi_guariti'].iloc[i]
+            )
+            new_deceased.append(
+            region['deceduti'].iloc[i]
+            )
+        else:
+            #otherwise calculate daily healed and deceased
+            new_healed.append(
+            region['dimessi_guariti'].iloc[i]-region['dimessi_guariti'].iloc[i-1]
+            )
+            new_deceased.append(
+            region['deceduti'].iloc[i]-region['deceduti'].iloc[i-1]
+            )
 
     plt.xlabel('Time (days after 24/02)')
     plt.ylabel('Values for '+nome)
     plt.plot(days, region['nuovi_positivi'], c='orange', linestyle='-')
-    plt.plot(days, region['dimessi_guariti'], c='green', linestyle='-')
-    plt.plot(days, region['deceduti'], c='blueviolet', linestyle='-')
+    plt.plot(days, new_healed, c='limegreen', linestyle='-')
+    plt.plot(days, new_deceased, c='purple', linestyle='-')
     plt.plot(days, region['variazione_totale_positivi'], c='grey',  linestyle='-')
-    plt.legend(('New Infected','Healed','Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+    plt.legend(('New Infected','New Healed','New Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./region-others/'+nome+'-curves-2.png', dpi = 250)
     plt.clf()
