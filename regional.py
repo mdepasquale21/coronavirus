@@ -30,8 +30,6 @@ print(dataset.describe())
 #print(dataset.mean())
 
 ################################################################################################################################
-
-################################################################################################################################
 ################################################################################################################################
 
 # yesterday
@@ -58,14 +56,13 @@ print('Ospedalizzati in terapia intensiva in fvg')
 print(last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['terapia_intensiva'].to_string(index=False))
 print('\n')
 
-################################################################################################################################
-
 # Write reports of hospital's situation to file
 report_h = open("./covid-19-regional-report.txt", "w")
 report_h.write("REPORT of REGIONAL SITUATION\n")
 report_h.write(last_tot_cases.to_string(index=False))
 report_h.close()
 
+################################################################################################################################
 ################################################################################################################################
 
 counts_tot_cases_by_region = [
@@ -88,7 +85,8 @@ plt.clf()
 plt.close()
 
 ##############################################################################################################################
-# FVG
+
+# curves for fvg
 days = [t[0] for t in enumerate(np.unique(dataset['data']))]
 data_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']
 
@@ -148,6 +146,11 @@ plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./region-fvg/fvg-curves-3-hospital.png', dpi = 250)
 plt.clf()
 
+##############################################################################################################################
+##############################################################################################################################
+##############################################################################################################################
+
+# bar charts for fvg
 tot_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['totale_casi']
 new_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['nuovi_positivi']
 var_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']['variazione_totale_positivi']
@@ -198,30 +201,11 @@ plt.clf()
 plt.close()
 
 ##############################################################################################################################
+##############################################################################################################################
+##############################################################################################################################
 
-#curves for other regions
-regions_data_list = [
-dataset.loc[dataset['denominazione_regione']=='Abruzzo'],
-dataset.loc[dataset['denominazione_regione']=='Basilicata'],
-dataset.loc[dataset['denominazione_regione']=='P.A. Bolzano'],
-dataset.loc[dataset['denominazione_regione']=='Calabria'],
-dataset.loc[dataset['denominazione_regione']=='Campania'],
-dataset.loc[dataset['denominazione_regione']=='Emilia-Romagna'],
-dataset.loc[dataset['denominazione_regione']=='Lazio'],
-dataset.loc[dataset['denominazione_regione']=='Liguria'],
-dataset.loc[dataset['denominazione_regione']=='Lombardia'],
-dataset.loc[dataset['denominazione_regione']=='Marche'],
-dataset.loc[dataset['denominazione_regione']=='Molise'],
-dataset.loc[dataset['denominazione_regione']=='Piemonte'],
-dataset.loc[dataset['denominazione_regione']=='Puglia'],
-dataset.loc[dataset['denominazione_regione']=='Sardegna'],
-dataset.loc[dataset['denominazione_regione']=='Sicilia'],
-dataset.loc[dataset['denominazione_regione']=='Toscana'],
-dataset.loc[dataset['denominazione_regione']=='P.A. Trento'],
-dataset.loc[dataset['denominazione_regione']=='Umbria'],
-dataset.loc[dataset['denominazione_regione']=='Valle d\'Aosta'],
-dataset.loc[dataset['denominazione_regione']=='Veneto']
-]
+# curves for other regions
+regions_data_list = [dataset.loc[dataset['denominazione_regione']==region] for region in np.unique(dataset['denominazione_regione'])]
 
 for region in regions_data_list:
     nome = np.unique(region['denominazione_regione'])[0]
