@@ -29,25 +29,33 @@ print(dataset.describe())
 #print('\nMEAN VALUES')
 #print(dataset.mean())
 
-print('\n DATE, REGION, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, VARIATION OF TOTAL INFECTED, HEALED, DECEASED')
-print(dataset.iloc[lambda x: x.index > 671][
-['data', 'denominazione_regione', 'totale_casi', 'totale_positivi', 'nuovi_positivi', 'variazione_totale_positivi', 'dimessi_guariti', 'deceduti']
-].to_string())
-
 ################################################################################################################################
 
 ################################################################################################################################
 ################################################################################################################################
-# monitoring hospitals in fvg
-print('\n MONITORING SITUATION IN FVG HOSPITALS')
 
+# yesterday
+yesterday='2020-03-31T17:00:00'
+yesterday_tot_cases = dataset.loc[dataset['data']==yesterday][
+['denominazione_regione','totale_casi','totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
+ 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
+]
+
+# today
 last_date = '2020-04-01T17:00:00'
-last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_regione','totale_casi','totale_positivi', 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']]
+last_tot_cases = dataset.loc[dataset['data']==last_date][
+['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
+'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
+]
 
 print('\nTotale casi in fvg')
 print(last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['totale_casi'].to_string(index=False))
+print('+',last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['nuovi_positivi'].to_string(index=False))
 print('Totale attualmente infetti in fvg')
 print(last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['totale_positivi'].to_string(index=False))
+print('+',last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['variazione_totale_positivi'].to_string(index=False))
+print('Totale in isolamento domiciliare in fvg')
+print(last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['isolamento_domiciliare'].to_string(index=False))
 print('Totale ospedalizzati in fvg')
 print(last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezia Giulia']['totale_ospedalizzati'].to_string(index=False))
 print('Ospedalizzati in terapia intensiva in fvg')
@@ -55,24 +63,12 @@ print(last_tot_cases.loc[last_tot_cases['denominazione_regione']=='Friuli Venezi
 print('\n')
 
 ################################################################################################################################
-# total cases by region
-print('\n HOSPITALS\' SITUATION IN WHOLE ITALY')
-print(last_tot_cases.to_string(index=False))
-print('\n GENERAL SITUATION IN WHOLE ITALY')
-last_tot_general = dataset.loc[dataset['data']==last_date][['denominazione_regione','nuovi_positivi','dimessi_guariti', 'deceduti', 'variazione_totale_positivi']]
-print(last_tot_general.to_string(index=False))
 
 # Write reports of hospital's situation to file
 report_h = open("./covid-19-regional-hospital-report.txt", "w")
 report_h.write("REPORT of REGIONAL HOSPITAL'S SITUATION\n")
 report_h.write(last_tot_cases.to_string(index=False))
 report_h.close()
-
-# Write reports of general situation to file
-report_g = open("./covid-19-regional-general-report.txt", "w")
-report_g.write("REPORT of REGIONAL SITUATION\n")
-report_g.write(last_tot_general.to_string(index=False))
-report_g.close()
 
 ################################################################################################################################
 
@@ -220,6 +216,8 @@ for region in regions_data_list:
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./region-others/'+nome+'-curves-1.png', dpi = 250)
     plt.clf()
+
+    # new healed and new deceased
 
     plt.xlabel('Time (days after 24/02)')
     plt.ylabel('Values for '+nome)
