@@ -33,40 +33,52 @@ dataset.info()
 
 ################################################################################################################################
 ################################################################################################################################
-# monitoring Trieste
-print('\n MONITORING SITUATION IN TRIESTE')
 
+# yesterday
+yesterday='2020-03-31T17:00:00'
+yesterday_tot_cases = dataset.loc[dataset['data']==yesterday][['denominazione_provincia','totale_casi']]
+
+# today
 last_date = '2020-04-01T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provincia','totale_casi']]
 
+# trieste
+yesterday_casi_trieste = yesterday_tot_cases.loc[yesterday_tot_cases['denominazione_provincia']=='Trieste']['totale_casi']
 casi_trieste = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Trieste']['totale_casi']
+diff_trieste = casi_trieste.iloc[0]-yesterday_casi_trieste.iloc[0]
 
-#for max
+# same for max
+yesterday_casi_bologna = yesterday_tot_cases.loc[yesterday_tot_cases['denominazione_provincia']=='Bologna']['totale_casi']
 casi_bologna = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Bologna']['totale_casi']
+diff_bologna = casi_bologna.iloc[0]-yesterday_casi_bologna.iloc[0]
 
-#for laura
+#same for laura
+yesterday_casi_vercelli = yesterday_tot_cases.loc[yesterday_tot_cases['denominazione_provincia']=='Vercelli']['totale_casi']
 casi_vercelli = last_tot_cases.loc[last_tot_cases['denominazione_provincia']=='Vercelli']['totale_casi']
+diff_vercelli = casi_vercelli.iloc[0]-yesterday_casi_vercelli.iloc[0]
 
+# print
 print('\nTotale casi a Trieste')
-print(casi_trieste.to_string(index=False))
+print(casi_trieste.to_string(index=False),'(+'+str(diff_trieste)+')')
 print('\n')
-
 print('\nTotale casi a Bologna')
-print(casi_bologna.to_string(index=False))
+print(casi_bologna.to_string(index=False),'(+'+str(diff_bologna)+')')
 print('\n')
-
 print('\nTotale casi a Vercelli')
-print(casi_vercelli.to_string(index=False))
+print(casi_vercelli.to_string(index=False),'(+'+str(diff_vercelli)+')')
 print('\n')
 
 # Write trieste's situation to file
 report_g = open("./covid-19-ts-bo-vc-report.txt", "w")
 report_g.write("Totale Casi a Trieste\n")
 report_g.write(casi_trieste.to_string(index=False))
+report_g.write('(+'+str(diff_trieste)+')')
 report_g.write('\nTotale casi a Bologna\n')
 report_g.write(casi_bologna.to_string(index=False))
+report_g.write('(+'+str(diff_bologna)+')')
 report_g.write('\nTotale casi a Vercelli\n')
 report_g.write(casi_vercelli.to_string(index=False))
+report_g.write('(+'+str(diff_vercelli)+')')
 report_g.close()
 
 ################################################################################################################################
