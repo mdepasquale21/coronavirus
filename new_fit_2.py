@@ -6,6 +6,8 @@ import pandas as pd
 #models
 from sklearn.linear_model import LinearRegression
 
+matplotlib.rcParams.update({'font.size': 8})
+
 #import data
 dataset = pd.read_csv('./dati/dpc-covid19-ita-andamento-nazionale.csv')
 
@@ -50,11 +52,11 @@ for i in range(len(regressors)):
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Log of Total Cases')
 plt.legend((
-'fit (R2={:.3f})'.format(scores[0]),
-'fit (R2={:.3f})'.format(scores[1]),
-'fit (R2={:.3f})'.format(scores[2]),
-'fit (R2={:.3f})'.format(scores[3]),
-'fit (R2={:.3f})'.format(scores[4]),
+'4 weeks ago (R2={:.3f})'.format(scores[0]),
+'3 weeks ago (R2={:.3f})'.format(scores[1]),
+'2 weeks ago (R2={:.3f})'.format(scores[2]),
+'1 week ago  (R2={:.3f})'.format(scores[3]),
+'today (R2={:.3f})'.format(scores[4]),
 'log data'),
 loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
@@ -70,11 +72,11 @@ for i in range(len(regressors)):
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Total Cases')
 plt.legend((
-'fit (R2={:.3f})'.format(scores[0]),
-'fit (R2={:.3f})'.format(scores[1]),
-'fit (R2={:.3f})'.format(scores[2]),
-'fit (R2={:.3f})'.format(scores[3]),
-'fit (R2={:.3f})'.format(scores[4]),
+'4 weeks ago (R2={:.3f})'.format(scores[0]),
+'3 weeks ago (R2={:.3f})'.format(scores[1]),
+'2 weeks ago (R2={:.3f})'.format(scores[2]),
+'1 week ago  (R2={:.3f})'.format(scores[3]),
+'today (R2={:.3f})'.format(scores[4]),
 'data'),
 loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
@@ -84,3 +86,29 @@ plt.clf()
 plt.close()
 
 ################################################################################################################################
+
+weeks = [i for i in range(5)]
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.scatter(weeks, growths, s=85, c='orange')
+for i, txt in enumerate(growths):
+    #ax.annotate(txt, (weeks[i], growths[i]))
+    ax.annotate('{:.3f}'.format(txt), (weeks[i], growths[i]))
+plt.xlabel('Time (weeks after feb)')
+plt.ylabel('Coefficient')
+plt.title('Coefficient in time')
+plt.savefig('./FIT/fit_1_2_time_coeff.png', dpi = 250)
+plt.clf()
+
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.scatter(weeks, scores, s=85, c='yellow')
+for i, txt in enumerate(scores):
+    #ax.annotate(txt, (weeks[i], scores[i]))
+    ax.annotate('{:.3f}'.format(txt), (weeks[i], scores[i]))
+plt.xlabel('Time (weeks after feb)')
+plt.ylabel('R2 Score')
+plt.title('R2 score in time')
+plt.savefig('./FIT/fit_1_2_time_scores.png', dpi = 250)
+plt.clf()
