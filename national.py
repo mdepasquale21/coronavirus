@@ -196,6 +196,17 @@ plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-all.png', dpi = 250)
 plt.clf()
 
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('Values')
+plt.plot(days, dataset['isolamento_domiciliare'], c='limegreen', linestyle='-')
+plt.plot(days, dataset['totale_ospedalizzati'], c='darkred', linestyle='-')
+plt.plot(days, dataset['ricoverati_con_sintomi'], c='purple', linestyle='-')
+plt.plot(days, dataset['terapia_intensiva'], c='black', linestyle='-')
+plt.legend(('at Home','total in Hospital','Hospitalized with Symptoms','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/curves-hospital-home.png', dpi = 250)
+plt.clf()
+
 #tamponi vs total cases and total currently positive
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
@@ -333,8 +344,8 @@ for i, _ in enumerate(dataset['totale_casi']):
     if(i < 1):
         print('\nCalculating growth factors: skipping index',i)
     else:
-        n1 = dataset['nuovi_positivi'].iloc[i]
-        n0 = dataset['nuovi_positivi'].iloc[i-1]
+        n1 = dataset['totale_casi'].iloc[i]
+        n0 = dataset['totale_casi'].iloc[i-1]
         growth_factor.append(n1/n0)
 
 print('\ngrowth factors day by day')
@@ -343,7 +354,7 @@ print(growth_factor)
 # growth factor
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Growth Factor')
-plt.title('Growth Factor [dN(t+1)/dN(t)]')
+plt.title('Growth Factor [N(t+1)/N(t)]')
 plt.plot(days[1:], growth_factor, 'ko')
 plt.plot(days[1:], growth_factor, color='grey', linestyle='--')
 #plt.legend(('data','linked'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
@@ -374,4 +385,14 @@ plt.plot(days[1:], growth_rate, color='cyan', linestyle='--')
 #plt.legend(('data','linked'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/growth-rate.png', dpi = 250)
+plt.clf()
+
+# trajectory of cases
+plt.xlabel('Total Cases')
+plt.ylabel('New Cases')
+plt.title('Trajectory of Cases')
+plt.plot(dataset['totale_casi'],dataset['nuovi_positivi'] , 'ko')
+plt.plot(dataset['totale_casi'],dataset['nuovi_positivi'], color='red', linestyle='--')
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/trajectory.png', dpi = 250)
 plt.clf()
