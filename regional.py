@@ -33,10 +33,10 @@ print(dataset.describe())
 ################################################################################################################################
 
 # yesterday
-yesterday='2020-04-04T17:00:00'
+yesterday='2020-04-05T17:00:00'
 
 # today
-last_date = '2020-04-05T17:00:00'
+last_date = '2020-04-06T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][
 ['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
