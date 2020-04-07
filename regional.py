@@ -85,23 +85,11 @@ plt.clf()
 plt.close()
 
 ##############################################################################################################################
+##############################################################################################################################
 
-# curve for fvg
+# time axis
 days = [t[0] for t in enumerate(np.unique(dataset['data']))]
 
-data_fvg = dataset.loc[dataset['denominazione_regione']=='Friuli Venezia Giulia']
-
-plt.xlabel('Time (days after 24/02)')
-plt.ylabel('Values for FVG')
-plt.plot(days, data_fvg['isolamento_domiciliare'], c='yellow', linestyle='-')
-plt.plot(days, data_fvg['totale_ospedalizzati'], c='grey', linestyle='-')
-plt.plot(days, data_fvg['terapia_intensiva'], c='black', linestyle='-')
-plt.legend(('at Home','In Hospital','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
-plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
-plt.savefig('./region-fvg/fvg-curves-home-hospital.png', dpi = 250)
-plt.clf()
-
-##############################################################################################################################
 ##############################################################################################################################
 ##############################################################################################################################
 
@@ -205,4 +193,46 @@ for region in regions_data_list:
     plt.legend(('New Infected','New Healed','New Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./region-others/'+nome+'-curves-2.png', dpi = 250)
+    plt.clf()
+
+    plt.xlabel('Time (days after 24/02)')
+    plt.ylabel('Values for '+nome)
+    plt.plot(days, region['isolamento_domiciliare'], c='limegreen', linestyle='-')
+    plt.plot(days, region['totale_ospedalizzati'], c='darkred', linestyle='-')
+    plt.plot(days, region['ricoverati_con_sintomi'], c='purple', linestyle='-')
+    plt.plot(days, region['terapia_intensiva'], c='black', linestyle='-')
+    plt.legend(('at Home','Total in Hospital','Hospitalized with Symptoms','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+    plt.savefig('./region-others/'+nome+'-curves-3.png', dpi = 250)
+    plt.clf()
+
+    # calculate growth factor
+    growth_factor = []
+
+    for i, _ in enumerate(region['totale_casi']):
+        if(i < 1):
+            print('\nCalculating growth factors: skipping index',i)
+        else:
+            n1 = region['totale_casi'].iloc[i]
+            n0 = region['totale_casi'].iloc[i-1]
+            growth_factor.append(n1/n0)
+
+    # growth factor
+    plt.xlabel('Time (days after 24/02)')
+    plt.ylabel('Growth Factor in '+nome)
+    plt.title('Growth Factor [N(t+1)/N(t)] in '+nome)
+    plt.plot(days[1:], growth_factor, 'ko')
+    plt.plot(days[1:], growth_factor, color='grey', linestyle='--')
+    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+    plt.savefig('./region-others/'+nome+'-growth-factor.png', dpi = 250)
+    plt.clf()
+
+    # trajectory of cases
+    plt.xlabel('Total Cases in '+nome)
+    plt.ylabel('New Cases in '+nome)
+    plt.title('Trajectory of Cases for '+nome)
+    plt.plot(region['totale_casi'],region['nuovi_positivi'] , 'ko')
+    plt.plot(region['totale_casi'],region['nuovi_positivi'], color='red', linestyle='--')
+    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+    plt.savefig('./region-others/'+nome+'-trajectory.png', dpi = 250)
     plt.clf()
