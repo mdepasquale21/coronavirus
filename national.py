@@ -102,6 +102,7 @@ plt.clf()
 
 new_healed = []
 new_deceased = []
+new_tamponi=[]
 
 for i in range(len(dataset)):
     if(i < 1):
@@ -111,6 +112,9 @@ for i in range(len(dataset)):
         new_deceased.append(
         dataset['deceduti'].iloc[i]
         )
+        new_tamponi.append(
+        dataset['tamponi'].iloc[i]
+        )
     else:
         #otherwise calculate daily healed and deceased
         new_healed.append(
@@ -118,6 +122,9 @@ for i in range(len(dataset)):
         )
         new_deceased.append(
         dataset['deceduti'].iloc[i]-dataset['deceduti'].iloc[i-1]
+        )
+        new_tamponi.append(
+        dataset['tamponi'].iloc[i]-dataset['tamponi'].iloc[i-1]
         )
 
 
@@ -219,6 +226,15 @@ plt.plot(days, dataset['deceduti'], c='blueviolet', linestyle='-')
 plt.legend(('# Tests','Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-with-tamponi.png', dpi = 250)
+plt.clf()
+
+#new infected/new tests ratio daily
+plt.xlabel('Time (days after 24/02)')
+plt.ylabel('New Infected/New Tests')
+plt.title('New Infected/New Tests Ratio')
+plt.plot(days, dataset['nuovi_positivi']/new_tamponi, c='darkslateblue', linestyle='-')
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/curves-with-tamponi-over-new.png', dpi = 250)
 plt.clf()
 
 ################################################################################################################################
