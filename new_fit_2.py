@@ -6,7 +6,7 @@ import pandas as pd
 #models
 from sklearn.linear_model import LinearRegression
 
-matplotlib.rcParams.update({'font.size': 8})
+matplotlib.rcParams.update({'font.size': 6})
 
 #import data
 dataset = pd.read_csv('./dati/dpc-covid19-ita-andamento-nazionale.csv')
@@ -24,10 +24,11 @@ regressor2 = LinearRegression()
 regressor3 = LinearRegression()
 regressor4 = LinearRegression()
 regressor5 = LinearRegression()
+regressor6 = LinearRegression()
 
-regressors = (regressor1,regressor2,regressor3,regressor4,regressor5)
+regressors = (regressor1,regressor2,regressor3,regressor4,regressor5, regressor6)
 
-map = {1:-28, 2:-21, 3:-14, 4:-7, 5:None}
+map = {1:-35, 2:-28, 3:-21, 4:-14, 5:-7, 6:None}
 
 log_y_pred = []
 scores = []
@@ -42,7 +43,7 @@ for reg, i in zip(regressors, range(1, len(regressors)+1)):
     growths.append(reg.coef_[0]) # coefficients reg.coef_ is an array in general, when fitting multidimensional X values
     n0s.append(reg.intercept_)  # intercepts
 
-colors = ('grey', 'green', 'purple', 'brown', 'blue')
+colors = ('orange', 'grey', 'green', 'purple', 'brown', 'blue')
 
 #plot of fit vs data
 plt.scatter(x,log_y,color = 'red')
@@ -52,13 +53,14 @@ for i in range(len(regressors)):
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Log of Total Cases')
 plt.legend((
-'4 weeks ago (R2={:.3f})'.format(scores[0]),
-'3 weeks ago (R2={:.3f})'.format(scores[1]),
-'2 weeks ago (R2={:.3f})'.format(scores[2]),
-'1 week ago  (R2={:.3f})'.format(scores[3]),
-'today (R2={:.3f})'.format(scores[4]),
+'5 weeks ago (R2={:.3f})'.format(scores[0]),
+'4 weeks ago (R2={:.3f})'.format(scores[1]),
+'3 weeks ago (R2={:.3f})'.format(scores[2]),
+'2 weeks ago (R2={:.3f})'.format(scores[3]),
+'1 week ago  (R2={:.3f})'.format(scores[4]),
+'today (R2={:.3f})'.format(scores[5]),
 'log data'),
-loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=4)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./FIT2/fit_1_time.png', dpi=250)
 plt.tight_layout()
@@ -73,13 +75,14 @@ plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Total Cases')
 plt.ylim([0,1000000])
 plt.legend((
-'4 weeks ago (R2={:.3f})'.format(scores[0]),
-'3 weeks ago (R2={:.3f})'.format(scores[1]),
-'2 weeks ago (R2={:.3f})'.format(scores[2]),
-'1 week ago  (R2={:.3f})'.format(scores[3]),
-'today (R2={:.3f})'.format(scores[4]),
+'5 weeks ago (R2={:.3f})'.format(scores[0]),
+'4 weeks ago (R2={:.3f})'.format(scores[1]),
+'3 weeks ago (R2={:.3f})'.format(scores[2]),
+'2 weeks ago (R2={:.3f})'.format(scores[3]),
+'1 week ago  (R2={:.3f})'.format(scores[4]),
+'today (R2={:.3f})'.format(scores[5]),
 'data'),
-loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=3)
+loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=4)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.tight_layout()
 plt.savefig('./FIT2/fit_2_time.png', dpi=250)
@@ -88,7 +91,7 @@ plt.close()
 
 ################################################################################################################################
 
-weeks = [i for i in range(5)]
+weeks = [i for i in range(len(regressors))]
 
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
