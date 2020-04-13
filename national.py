@@ -233,11 +233,13 @@ plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-with-tamponi.png', dpi = 250)
 plt.clf()
 
+dataset.insert(loc=12, column='rapporto_nuovi_positivi_tamponi', value=(dataset['nuovi_positivi']/dataset['nuovi_tamponi']))
+
 #new infected/new tests ratio daily
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('New Infected/New Tests')
 plt.title('New Infected/New Tests Ratio')
-plt.plot(days, dataset['nuovi_positivi']/new_tamponi, c='darkslateblue', linestyle='-')
+plt.plot(days, dataset['rapporto_nuovi_positivi_tamponi'], c='darkslateblue', linestyle='-')
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/curves-with-tamponi-over-new.png', dpi = 250)
 plt.clf()
@@ -452,9 +454,9 @@ plt.clf()
 
 # weekly average new infected/new tests ratio
 plt.xlabel('Time (weeks after 24/02)')
-plt.ylabel('New Infected/New Tests')
+plt.ylabel('Average New Infected/New Tests')
 plt.title('New Infected/New Tests Ratio (Weekly Average)')
-plt.plot(weeks, ave_dataset['nuovi_positivi']/ave_dataset['nuovi_tamponi'], c='darkslateblue', linestyle='-')
+plt.plot(weeks, ave_dataset['rapporto_nuovi_positivi_tamponi'], c='darkslateblue', linestyle='-')
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/average-curves-with-tamponi-over-new.png', dpi = 250)
 plt.clf()
