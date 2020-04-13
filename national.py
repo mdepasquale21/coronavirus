@@ -468,3 +468,27 @@ plt.plot(ave_dataset['totale_casi'],ave_dataset['nuovi_positivi'], color='red', 
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/average-trajectory.png', dpi = 250)
 plt.clf()
+
+# weekly average only new infected
+plt.xlabel('Time (weeks after 24/02)')
+plt.ylabel('Average New Infected')
+plt.title('New infected curve (Weekly Average)')
+plt.plot(weeks, ave_dataset['nuovi_positivi'], c='orange')
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/average-curve-new-infected.png', dpi = 250)
+plt.clf()
+plt.close()
+
+# weekly average barchart new infected
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+plt.ylabel('Average New Infected')
+plt.xticks(rotation=90)
+plt.xlabel('Time (weeks after 24/02)')
+plt.title('New Infected Every Day (Weekly Average)')
+plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
+plt.bar(weeks, ave_dataset['nuovi_positivi'], color='orange')
+plt.tight_layout()
+plt.savefig('./curves/average-bar-chart-new-cases.png', dpi=250)
+plt.clf()
+plt.close()
