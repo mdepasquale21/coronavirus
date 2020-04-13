@@ -7,13 +7,13 @@ import seaborn as sns
 #import data
 dataset = pd.read_csv('./dati/dpc-covid19-ita-andamento-nazionale.csv')
 
-print('\nDATA EXPLORATION')
-print('\nSHAPE')
-print(dataset.shape)
-print('\nINFO')
-dataset.info()
-print('\nDESCRIPTION')
-print(dataset.describe())
+#print('\nDATA EXPLORATION')
+#print('\nSHAPE')
+#print(dataset.shape)
+#print('\nINFO')
+#dataset.info()
+#print('\nDESCRIPTION')
+#print(dataset.describe())
 #n_rows_head = 10
 #print('\nLAST ' + str(n_rows_head) + ' ENTRIES')
 #print(dataset.tail(n_rows_head).to_string(index=False))
@@ -23,19 +23,6 @@ print(dataset.describe())
 #print(dataset.max())
 #print('\nMEAN VALUES')
 #print(dataset.mean())
-
-print('\n DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, VARIATION OF TOTAL INFECTED, HEALED, DECEASED')
-print(dataset[
-['data', 'totale_casi', 'totale_positivi', 'nuovi_positivi', 'variazione_totale_positivi', 'dimessi_guariti', 'deceduti']
-].to_string(index=False))
-
-# Write national report to file
-report = open("./covid-19-national-report.txt", "w")
-report.write("REPORT of DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, VARIATION OF TOTAL INFECTED, HEALED, DECEASED\n")
-report.write(dataset[
-['data', 'totale_casi', 'totale_positivi', 'nuovi_positivi', 'variazione_totale_positivi', 'dimessi_guariti', 'deceduti']
-].to_string(index=False))
-report.close()
 
 ################################################################################################################################
 ################################################################################################################################
@@ -127,6 +114,24 @@ for i in range(len(dataset)):
         dataset['tamponi'].iloc[i]-dataset['tamponi'].iloc[i-1]
         )
 
+# insert new quantities in dataframe
+dataset.insert(loc=9,column='nuovi_guariti', value=new_healed)
+dataset.insert(loc=10,column='nuovi_deceduti', value=new_deceased)
+dataset.insert(loc=11,column='nuovi_tamponi', value=new_tamponi)
+
+# print national report
+print('\n DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, NEW HEALED, NEW DECEASED, VARIATION OF TOTAL INFECTED')
+print(dataset[
+['data', 'totale_casi', 'totale_positivi', 'nuovi_positivi', 'nuovi_guariti', 'nuovi_deceduti', 'variazione_totale_positivi']
+].to_string(index=False))
+
+# Write national report to file
+report = open("./covid-19-national-report.txt", "w")
+report.write("REPORT of DATE, TOT CASES, CURRENTLY INFECTED, NEW INFECTED, NEW HEALED, NEW DECEASED, VARIATION OF TOTAL INFECTED\n")
+report.write(dataset[
+['data', 'totale_casi', 'totale_positivi', 'nuovi_positivi', 'nuovi_guariti', 'nuovi_deceduti', 'variazione_totale_positivi']
+].to_string(index=False))
+report.close()
 
 print('\nBILANCIO DI IERI')
 print('NUOVI POSITIVI')
@@ -174,8 +179,8 @@ report.close()
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
 plt.plot(days, dataset['nuovi_positivi'], c='orange', linestyle='-')
-plt.plot(days, new_healed, c='limegreen', linestyle='-')
-plt.plot(days, new_deceased, c='purple', linestyle='-')
+plt.plot(days, dataset['nuovi_guariti'], c='limegreen', linestyle='-')
+plt.plot(days, dataset['nuovi_deceduti'], c='purple', linestyle='-')
 plt.plot(days, dataset['variazione_totale_positivi'], c='grey',  linestyle='-')
 plt.legend(('New Infected','New Healed','New Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
@@ -187,7 +192,7 @@ plt.clf()
 ################################################################################################################################
 
 print('\ntotale_casi = totale_positivi + dimessi_guariti + deceduti\n')
-print('\nvariazione_totale_positivi = nuovi_positivi - dimessi_guariti_oggi - deceduti_oggi\n')
+print('\nvariazione_totale_positivi = nuovi_positivi - nuovi_guariti - nuovi_deceduti\n')
 
 # comparison of more curves
 
@@ -206,7 +211,7 @@ plt.clf()
 #curves for people at home, in hospital and in intensive care
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Values')
-plt.plot(days, dataset['isolamento_domiciliare'], c='limegreen', linestyle='-')
+plt.plot(days, dataset['isolamento_domiciliare'], c='goldenrod', linestyle='-')
 plt.plot(days, dataset['totale_ospedalizzati'], c='darkred', linestyle='-')
 plt.plot(days, dataset['ricoverati_con_sintomi'], c='purple', linestyle='-')
 plt.plot(days, dataset['terapia_intensiva'], c='black', linestyle='-')
@@ -365,8 +370,8 @@ for i, _ in enumerate(dataset['totale_casi']):
         n0 = dataset['totale_casi'].iloc[i-1]
         growth_factor.append(n1/n0)
 
-print('\ngrowth factors day by day')
-print(growth_factor)
+print('\ngrowth factors yesterday and today')
+print(growth_factor[-2], growth_factor[-1])
 
 # growth factor
 plt.xlabel('Time (days after 24/02)')
@@ -390,8 +395,8 @@ for i, _ in enumerate(dataset['totale_casi']):
         n1 = dataset['totale_casi'].iloc[i-1]
         growth_rate.append(((n2-n1)/n1)*100.0)
 
-print('\ngrowth rates % day by day')
-print(growth_rate)
+print('\ngrowth rates % yesterday and today')
+print(growth_rate[-2], growth_rate[-1])
 
 # growth rate
 plt.xlabel('Time (days after 24/02)')
@@ -412,4 +417,54 @@ plt.plot(dataset['totale_casi'],dataset['nuovi_positivi'] , 'ko')
 plt.plot(dataset['totale_casi'],dataset['nuovi_positivi'], color='red', linestyle='--')
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
 plt.savefig('./curves/trajectory.png', dpi = 250)
+plt.clf()
+
+################################################################################################################################################
+################################################################################################################################################
+################################################################################################################################################
+################################################################################################################################################
+################################################################################################################################################
+# average some quantities weekly to smooth out the curves and remove noise
+
+time = 6
+
+# average time to calculate weeks and not days
+dd = days[::time]
+weeks = [i for i in range(len(dd))]
+
+# drop string columns
+dataset.drop(columns=['data', 'stato', 'note_it', 'note_en'])
+
+# average weekly dataset
+ave_dataset = dataset.groupby(np.arange(len(dataset))//time, axis=0).mean()
+
+# weekly average new positives, new healed, new deceased and total variations
+plt.xlabel('Time (weeks after 24/02)')
+plt.ylabel('Weekly Average Values')
+plt.plot(weeks, ave_dataset['nuovi_positivi'], c='orange', linestyle='-')
+plt.plot(weeks, ave_dataset['nuovi_guariti'], c='limegreen', linestyle='-')
+plt.plot(weeks, ave_dataset['nuovi_deceduti'], c='purple', linestyle='-')
+plt.plot(weeks, ave_dataset['variazione_totale_positivi'], c='grey',  linestyle='-')
+plt.legend(('New Infected','New Healed','New Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/average-curves-almost.png', dpi = 250)
+plt.clf()
+
+# weekly average new infected/new tests ratio
+plt.xlabel('Time (weeks after 24/02)')
+plt.ylabel('New Infected/New Tests')
+plt.title('New Infected/New Tests Ratio (Weekly Average)')
+plt.plot(weeks, ave_dataset['nuovi_positivi']/ave_dataset['nuovi_tamponi'], c='darkslateblue', linestyle='-')
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/average-curves-with-tamponi-over-new.png', dpi = 250)
+plt.clf()
+
+# weekly average trajectory of cases
+plt.xlabel('Total Cases')
+plt.ylabel('New Cases')
+plt.title('Trajectory of Cases (Weekly Average)')
+plt.plot(ave_dataset['totale_casi'],ave_dataset['nuovi_positivi'] , 'ko')
+plt.plot(ave_dataset['totale_casi'],ave_dataset['nuovi_positivi'], color='red', linestyle='--')
+plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+plt.savefig('./curves/average-trajectory.png', dpi = 250)
 plt.clf()

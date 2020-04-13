@@ -201,7 +201,7 @@ for region in regions_data_list:
 
     plt.xlabel('Time (days after 24/02)')
     plt.ylabel('Values for '+nome)
-    plt.plot(days, region['isolamento_domiciliare'], c='limegreen', linestyle='-')
+    plt.plot(days, region['isolamento_domiciliare'], c='goldenrod', linestyle='-')
     plt.plot(days, region['totale_ospedalizzati'], c='darkred', linestyle='-')
     plt.plot(days, region['ricoverati_con_sintomi'], c='purple', linestyle='-')
     plt.plot(days, region['terapia_intensiva'], c='black', linestyle='-')
