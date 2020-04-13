@@ -35,11 +35,11 @@ dataset.info()
 ################################################################################################################################
 
 # yesterday
-yesterday='2020-04-11T17:00:00'
+yesterday='2020-04-12T17:00:00'
 yesterday_tot_cases = dataset.loc[dataset['data']==yesterday][['denominazione_provincia','totale_casi']]
 
 # today
-last_date = '2020-04-12T17:00:00'
+last_date = '2020-04-13T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provincia','totale_casi']]
 
 # trieste
