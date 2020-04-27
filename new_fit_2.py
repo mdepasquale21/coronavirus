@@ -26,10 +26,11 @@ regressor4 = LinearRegression()
 regressor5 = LinearRegression()
 regressor6 = LinearRegression()
 regressor7 = LinearRegression()
+regressor8 = LinearRegression()
 
-regressors = (regressor1,regressor2,regressor3,regressor4,regressor5, regressor6, regressor7)
+regressors = (regressor1,regressor2,regressor3,regressor4,regressor5, regressor6, regressor7, regressor8)
 
-map = {1:-42, 2:-35, 3:-28, 4:-21, 5:-14, 6:-7, 7:None}
+map = {1:-49, 2:-42, 3:-35, 4:-28, 5:-21, 6:-14, 7:-7, 8:None}
 
 log_y_pred = []
 scores = []
@@ -44,7 +45,7 @@ for reg, i in zip(regressors, range(1, len(regressors)+1)):
     growths.append(reg.coef_[0]) # coefficients reg.coef_ is an array in general, when fitting multidimensional X values
     n0s.append(reg.intercept_)  # intercepts
 
-colors = ('pink', 'orange', 'grey', 'green', 'purple', 'brown', 'blue')
+colors = ('yellow','pink', 'orange', 'grey', 'green', 'purple', 'brown', 'blue')
 
 #plot of fit vs data
 plt.scatter(x,log_y,color = 'red')
@@ -54,13 +55,14 @@ for i in range(len(regressors)):
 plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Log of Total Cases')
 plt.legend((
-'6 weeks ago (R2={:.3f})'.format(scores[0]),
-'5 weeks ago (R2={:.3f})'.format(scores[1]),
-'4 weeks ago (R2={:.3f})'.format(scores[2]),
-'3 weeks ago (R2={:.3f})'.format(scores[3]),
-'2 weeks ago (R2={:.3f})'.format(scores[4]),
-'1 week ago  (R2={:.3f})'.format(scores[5]),
-'today (R2={:.3f})'.format(scores[6]),
+'7 weeks ago (R2={:.3f})'.format(scores[0]),
+'6 weeks ago (R2={:.3f})'.format(scores[1]),
+'5 weeks ago (R2={:.3f})'.format(scores[2]),
+'4 weeks ago (R2={:.3f})'.format(scores[3]),
+'3 weeks ago (R2={:.3f})'.format(scores[4]),
+'2 weeks ago (R2={:.3f})'.format(scores[5]),
+'1 week ago  (R2={:.3f})'.format(scores[6]),
+'today (R2={:.3f})'.format(scores[7]),
 'log data'),
 loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=4)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
@@ -77,13 +79,14 @@ plt.xlabel('Time (days after 24/02)')
 plt.ylabel('Total Cases')
 plt.ylim([0,1000000])
 plt.legend((
-'6 weeks ago (R2={:.3f})'.format(scores[0]),
-'5 weeks ago (R2={:.3f})'.format(scores[1]),
-'4 weeks ago (R2={:.3f})'.format(scores[2]),
-'3 weeks ago (R2={:.3f})'.format(scores[3]),
-'2 weeks ago (R2={:.3f})'.format(scores[4]),
-'1 week ago  (R2={:.3f})'.format(scores[5]),
-'today (R2={:.3f})'.format(scores[6]),
+'7 weeks ago (R2={:.3f})'.format(scores[0]),
+'6 weeks ago (R2={:.3f})'.format(scores[1]),
+'5 weeks ago (R2={:.3f})'.format(scores[2]),
+'4 weeks ago (R2={:.3f})'.format(scores[3]),
+'3 weeks ago (R2={:.3f})'.format(scores[4]),
+'2 weeks ago (R2={:.3f})'.format(scores[5]),
+'1 week ago  (R2={:.3f})'.format(scores[6]),
+'today (R2={:.3f})'.format(scores[7]),
 'data'),
 loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=4)
 plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
