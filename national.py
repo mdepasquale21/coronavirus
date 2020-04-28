@@ -133,6 +133,14 @@ report.write(dataset[
 ].to_string(index=False))
 report.close()
 
+# Write total national report to file
+total_report = open("./covid-19-national-report-total.txt", "w")
+total_report.write("REPORT of DATE, TOT CASES, CURRENTLY INFECTED, HEALED, DECEASED\n")
+total_report.write(dataset[
+['data', 'totale_casi', 'totale_positivi', 'dimessi_guariti', 'deceduti']
+].to_string(index=False))
+total_report.close()
+
 print('\nBILANCIO DI IERI')
 print('NUOVI POSITIVI')
 print(dataset['nuovi_positivi'].iloc[-2])
