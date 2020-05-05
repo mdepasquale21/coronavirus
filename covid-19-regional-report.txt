@@ -1,23 +1,23 @@
 REPORT of REGIONAL SITUATION
  denominazione_regione  totale_casi  totale_positivi  nuovi_positivi  dimessi_guariti  deceduti  variazione_totale_positivi  isolamento_domiciliare  totale_ospedalizzati  terapia_intensiva
-               Abruzzo         3000             1837               4              831       332                         -31                    1521                   316                 15
-            Basilicata          386              173               0              188        25                         -21                     120                    53                  3
-          P.A. Bolzano         2541              636               5             1621       284                         -29                     523                   113                 10
-              Calabria         1118              674               4              356        88                         -28                     577                    97                  4
-              Campania         4498             2711              14             1421       366                         -15                    2249                   462                 24
-        Emilia-Romagna        26175             8984             159            13525      3666                         -61                    6817                  2167                199
- Friuli Venezia Giulia         3076             1050               4             1727       299                         -37                     916                   134                  4
-                 Lazio         6847             4385              38             1938       524                           0                    2955                  1430                 95
-               Liguria         8412             3508              53             3683      1221                         -43                    2830                   678                 72
-             Lombardia        78105            37307             577            26504     14294                         381                   30361                  6946                532
-                Marche         6363             3206              44             2225       932                           8                    2773                   433                 44
-                Molise          301              178               0              101        22                          -3                     168                    10                  1
-              Piemonte        27622            15562             192             8874      3186                         -76                   13010                  2552                161
-                Puglia         4153             2945               9              779       429                         -10                    2509                   436                 39
-              Sardegna         1317              653              -2              545       119                         -36                     553                   100                  9
-               Sicilia         3255             2202              15              809       244                          -1                    1799                   403                 27
-               Toscana         9601             5279              38             3441       881                         -49                    4660                   619                107
-           P.A. Trento         4258             1165              11             2663       430                         -82                    1013                   152                 17
-                Umbria         1394              181               0             1143        70                          -2                     112                    69                 13
-         Valle d'Aosta         1143              110               1              894       139                           1                      34                    76                  2
-                Veneto        18373             7234              55             9611      1528                         -65                    6178                  1056                101
+               Abruzzo         3025             1809              25              881       335                         -28                    1509                   300                 11
+            Basilicata          396              177              10              194        25                           4                     124                    53                  3
+          P.A. Bolzano         2542              612               1             1644       286                         -24                     502                   110                 11
+              Calabria         1119              650               1              381        88                         -24                     554                    96                  4
+              Campania         4518             2530              20             1619       369                        -181                    2097                   433                 25
+        Emilia-Romagna        26275             8681             100            13889      3705                        -303                    6573                  2108                191
+ Friuli Venezia Giulia         3085              984               9             1798       303                         -66                     860                   124                  4
+                 Lazio         6914             4370              67             2010       534                         -15                    2964                  1406                 91
+               Liguria         8475             3427              63             3816      1232                         -81                    2776                   651                 68
+             Lombardia        78605            37092             500            27124     14389                        -215                   30382                  6710                509
+                Marche         6392             3219              29             2237       936                          13                    2790                   429                 42
+                Molise          301              177               0              102        22                          -1                     167                    10                  1
+              Piemonte        27774            15323             152             9235      3216                        -239                   12861                  2462                155
+                Puglia         4170             2939              17              798       433                          -6                    2516                   423                 39
+              Sardegna         1318              642               1              557       119                         -11                     539                   103                  9
+               Sicilia         3267             2202              12              818       247                           0                    1809                   393                 26
+               Toscana         9631             5190              30             3552       889                         -89                    4595                   595                111
+           P.A. Trento         4261             1041               3             2787       433                        -124                     900                   141                 15
+                Umbria         1400              176               6             1154        70                          -5                     109                    67                 11
+         Valle d'Aosta         1143              110               0              894       139                           0                      51                    59                  3
+                Veneto        18402             7116              29             9741      1545                        -118                    6092                  1024                 98
