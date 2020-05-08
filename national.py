@@ -436,7 +436,7 @@ plt.clf()
 ################################################################################################################################################
 # average some quantities weekly to smooth out the curves and remove noise
 
-time = 6
+time = 7
 
 # average time to calculate weeks and not days
 dd = days[::time]
