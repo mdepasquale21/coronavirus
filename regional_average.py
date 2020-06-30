@@ -27,7 +27,7 @@ weeks = [i for i in range(len(dd))]
 # isolamento_domiciliare,totale_positivi,variazione_totale_positivi,
 # nuovi_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,casi_testati,note_it,note_en
 # drop string columns
-dataset.drop(columns=['data','stato','codice_regione','lat','long','note_it','note_en'])
+dataset = dataset.drop(columns=['data','stato','codice_regione','lat','long','note_it','note_en'])
 
 # only
 # denominazione_regione,
@@ -39,15 +39,10 @@ dataset.drop(columns=['data','stato','codice_regione','lat','long','note_it','no
 regions_data_list = [dataset.loc[dataset['denominazione_regione']==region] for region in np.unique(dataset['denominazione_regione'])]
 
 # average weekly regions data
-regions_data_list = [
- df[
-  [
-  'ricoverati_con_sintomi','terapia_intensiva','totale_ospedalizzati',
-  'isolamento_domiciliare','totale_positivi','variazione_totale_positivi',
-  'nuovi_positivi','dimessi_guariti','deceduti','totale_casi','tamponi','casi_testati'
-  ]
-  ].groupby(np.arange(len(df))//time, axis=0).mean() for df in regions_data_list
-]
+for df in regions_data_list:
+    region = df['denominazione_regione'][::time]
+    df_ave = df.drop('denominazione_regione',axis=1).groupby(np.arange(len(df))//time, axis=0).mean()
+    df = pd.concat([df_ave, region],axis=1)
 
 print(regions_data_list[0])
 ################################################################################################################################
