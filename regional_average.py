@@ -38,26 +38,21 @@ dataset = dataset.drop(columns=['data','stato','codice_regione','lat','long','no
 # regions data
 regions_data_list = [dataset.loc[dataset['denominazione_regione']==region] for region in np.unique(dataset['denominazione_regione'])]
 
-# average weekly regions data
-for df in regions_data_list:
-    region = df['denominazione_regione'][::time]
-    df_ave = df.drop('denominazione_regione',axis=1).groupby(np.arange(len(df))//time, axis=0).mean()
-    df = pd.concat([df_ave, region],axis=1)
-
-print(regions_data_list[0])
 ################################################################################################################################
 
 # average curves for all regions
 
-for ave_df in regions_data_list:
-    nome = np.unique(ave_df['denominazione_regione'])[0]
+for df in regions_data_list:
+    nome = np.unique(df['denominazione_regione'])[0]
+    print('Calculating average every',time,'days')
+    ave_df = df.drop('denominazione_regione',axis=1).groupby(np.arange(len(df))//time, axis=0).mean()
 
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (weeks after 24/02)')
     plt.ylabel('Values for '+nome)
-    plt.plot(days, ave_df['totale_casi'], c='red', linestyle='-')
-    plt.plot(days, ave_df['totale_positivi'], c='pink', linestyle='-')
-    plt.plot(days, ave_df['dimessi_guariti'], c='green', linestyle='-')
-    plt.plot(days, ave_df['deceduti'], c='blueviolet', linestyle='-')
+    plt.plot(weeks, ave_df['totale_casi'], c='red', linestyle='-')
+    plt.plot(weeks, ave_df['totale_positivi'], c='pink', linestyle='-')
+    plt.plot(weeks, ave_df['dimessi_guariti'], c='green', linestyle='-')
+    plt.plot(weeks, ave_df['deceduti'], c='blueviolet', linestyle='-')
     plt.legend(('Total Cases','Currently Infected','Healed','Deceased'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./regions-average/'+nome+'-curves-1.png', dpi = 250)
@@ -83,23 +78,23 @@ for ave_df in regions_data_list:
             ave_df['deceduti'].iloc[i]-ave_df['deceduti'].iloc[i-1]
             )
 
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (weeks after 24/02)')
     plt.ylabel('Values for '+nome)
-    plt.plot(days, ave_df['nuovi_positivi'], c='orange', linestyle='-')
-    plt.plot(days, new_healed, c='limegreen', linestyle='-')
-    plt.plot(days, new_deceased, c='purple', linestyle='-')
-    plt.plot(days, ave_df['variazione_totale_positivi'], c='grey',  linestyle='-')
+    plt.plot(weeks, ave_df['nuovi_positivi'], c='orange', linestyle='-')
+    plt.plot(weeks, new_healed, c='limegreen', linestyle='-')
+    plt.plot(weeks, new_deceased, c='purple', linestyle='-')
+    plt.plot(weeks, ave_df['variazione_totale_positivi'], c='grey',  linestyle='-')
     plt.legend(('New Infected','New Healed','New Deceased', 'Total Variation of Infected'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./regions-average/'+nome+'-curves-2.png', dpi = 250)
     plt.clf()
 
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (weeks after 24/02)')
     plt.ylabel('Values for '+nome)
-    plt.plot(days, ave_df['isolamento_domiciliare'], c='goldenrod', linestyle='-')
-    plt.plot(days, ave_df['totale_ospedalizzati'], c='darkred', linestyle='-')
-    plt.plot(days, ave_df['ricoverati_con_sintomi'], c='purple', linestyle='-')
-    plt.plot(days, ave_df['terapia_intensiva'], c='black', linestyle='-')
+    plt.plot(weeks, ave_df['isolamento_domiciliare'], c='goldenrod', linestyle='-')
+    plt.plot(weeks, ave_df['totale_ospedalizzati'], c='darkred', linestyle='-')
+    plt.plot(weeks, ave_df['ricoverati_con_sintomi'], c='purple', linestyle='-')
+    plt.plot(weeks, ave_df['terapia_intensiva'], c='black', linestyle='-')
     plt.legend(('at Home','Total in Hospital','Hospitalized with Symptoms','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./regions-average/'+nome+'-curves-3.png', dpi = 250)
@@ -117,11 +112,11 @@ for ave_df in regions_data_list:
             growth_factor.append(n1/n0)
 
     # growth factor
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (weeks after 24/02)')
     plt.ylabel('Growth Factor in '+nome)
     plt.title('Growth Factor [N(t+1)/N(t)] in '+nome)
-    plt.plot(days[1:], growth_factor, 'ko')
-    plt.plot(days[1:], growth_factor, color='grey', linestyle='--')
+    plt.plot(weeks[1:], growth_factor, 'ko')
+    plt.plot(weeks[1:], growth_factor, color='grey', linestyle='--')
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./regions-average/'+nome+'-growth-factor.png', dpi = 250)
     plt.clf()
