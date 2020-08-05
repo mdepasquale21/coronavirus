@@ -27,7 +27,7 @@ weeks = [i for i in range(len(dd))]
 # isolamento_domiciliare,totale_positivi,variazione_totale_positivi,
 # nuovi_positivi,dimessi_guariti,deceduti,totale_casi,tamponi,casi_testati,note_it,note_en
 # drop string columns
-dataset = dataset.drop(columns=['data','stato','codice_regione','lat','long','note_it','note_en'])
+dataset = dataset.drop(columns=['data','stato','codice_regione','lat','long','note'])
 
 # only
 # denominazione_regione,

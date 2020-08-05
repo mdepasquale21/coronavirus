@@ -443,7 +443,7 @@ dd = days[::time]
 weeks = [i for i in range(len(dd))]
 
 # drop string columns
-dataset.drop(columns=['data', 'stato', 'note_it', 'note_en'])
+dataset.drop(columns=['data', 'stato', 'note'])
 
 # average weekly dataset
 ave_dataset = dataset.groupby(np.arange(len(dataset))//time, axis=0).mean()
