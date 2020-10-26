@@ -33,14 +33,14 @@ print(dataset.describe())
 ################################################################################################################################
 
 # yesterday
-yesterday='2020-08-03T17:00:00'
+yesterday='2020-10-25T17:00:00'
 yesterday_tot_cases = dataset.loc[dataset['data']==yesterday][
 ['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
 ]
 
 # today
-last_date = '2020-08-04T17:00:00'
+last_date = '2020-10-026T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][
 ['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
@@ -69,6 +69,7 @@ report_h.close()
 ################################################################################################################################
 ################################################################################################################################
 
+# ??????????????????????????????????????????????????
 counts_tot_cases_by_region = [
 (region, last_tot_cases.loc[last_tot_cases['denominazione_regione']==region]['totale_casi']) for region in np.unique(dataset['denominazione_regione'])
 ]
