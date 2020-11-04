@@ -33,14 +33,14 @@ print(dataset.describe())
 ################################################################################################################################
 
 # yesterday
-yesterday='2020-10-25T17:00:00'
+yesterday='2020-11-03T17:00:00'
 yesterday_tot_cases = dataset.loc[dataset['data']==yesterday][
 ['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
 ]
 
 # today
-last_date = '2020-10-026T17:00:00'
+last_date = '2020-11-04T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][
 ['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
@@ -209,6 +209,16 @@ for region in regions_data_list:
     plt.legend(('at Home','Total in Hospital','Hospitalized with Symptoms','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
     plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
     plt.savefig('./region-others/'+nome+'-curves-3.png', dpi = 250)
+    plt.clf()
+
+    plt.xlabel('Time (days after 24/02)')
+    plt.ylabel('Values for '+nome)
+    plt.plot(days, region['totale_ospedalizzati'], c='darkred', linestyle='-')
+    plt.plot(days, region['ricoverati_con_sintomi'], c='purple', linestyle='-')
+    plt.plot(days, region['terapia_intensiva'], c='black', linestyle='-')
+    plt.legend(('Total in Hospital','Hospitalized with Symptoms','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+    plt.savefig('./region-others/'+nome+'-curves-4.png', dpi = 250)
     plt.clf()
 
     # calculate growth factor

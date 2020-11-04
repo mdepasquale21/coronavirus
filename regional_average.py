@@ -100,6 +100,16 @@ for df in regions_data_list:
     plt.savefig('./regions-average/'+nome+'-curves-3.png', dpi = 250)
     plt.clf()
 
+    plt.xlabel('Time (weeks after 24/02)')
+    plt.ylabel('Values for '+nome)
+    plt.plot(weeks, ave_df['totale_ospedalizzati'], c='darkred', linestyle='-')
+    plt.plot(weeks, ave_df['ricoverati_con_sintomi'], c='purple', linestyle='-')
+    plt.plot(weeks, ave_df['terapia_intensiva'], c='black', linestyle='-')
+    plt.legend(('Total in Hospital','Hospitalized with Symptoms','Intensive Care'),loc='upper right', bbox_to_anchor=(1.05, 1.15), ncol=2)
+    plt.grid(color='lightgray', linestyle='--', linewidth=0.5)
+    plt.savefig('./regions-average/'+nome+'-curves-4.png', dpi = 250)
+    plt.clf()
+
     # calculate growth factor
     growth_factor = []
 
