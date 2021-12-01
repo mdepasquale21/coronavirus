@@ -33,14 +33,14 @@ print(dataset.describe())
 ################################################################################################################################
 
 # yesterday
-yesterday='2020-12-05T17:00:00'
+yesterday='2021-11-30T17:00:00'
 yesterday_tot_cases = dataset.loc[dataset['data']==yesterday][
 ['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
 ]
 
 # today
-last_date = '2020-12-06T17:00:00'
+last_date = '2021-12-01T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][
 ['denominazione_regione','totale_casi', 'totale_positivi', 'nuovi_positivi', 'dimessi_guariti', 'deceduti', 'variazione_totale_positivi',
 'isolamento_domiciliare', 'totale_ospedalizzati', 'terapia_intensiva']
@@ -108,7 +108,7 @@ ax = fig.add_subplot(1, 1, 1)
 plt.ylabel('Total Cases')
 #plt.ylim(0,10)
 plt.xticks(rotation=90)
-plt.xlabel('Time (days after 24/02)')
+plt.xlabel('Time (days after 24/02/2020)')
 plt.title('Total Cases in FVG')
 plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
 for j,f in zip(days, tot_fvg):
@@ -123,7 +123,7 @@ ax = fig.add_subplot(1, 1, 1)
 plt.ylabel('New Cases')
 #plt.ylim(0,10)
 plt.xticks(rotation=90)
-plt.xlabel('Time (days after 24/02)')
+plt.xlabel('Time (days after 24/02/2020)')
 plt.title('New Daily Cases in FVG')
 plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
 for j,f in zip(days, new_fvg):
@@ -138,7 +138,7 @@ ax = fig.add_subplot(1, 1, 1)
 plt.ylabel('Total Variations of Infected People')
 #plt.ylim(0,10)
 plt.xticks(rotation=90)
-plt.xlabel('Time (days after 24/02)')
+plt.xlabel('Time (days after 24/02/2020)')
 plt.title('Total Variations of Cases in FVG Every Day')
 plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
 for j,f in zip(days, var_fvg):
@@ -158,7 +158,7 @@ regions_data_list = [dataset.loc[dataset['denominazione_regione']==region] for r
 for region in regions_data_list:
     nome = np.unique(region['denominazione_regione'])[0]
 
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (days after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(days, region['totale_casi'], c='red', linestyle='-')
     plt.plot(days, region['totale_positivi'], c='pink', linestyle='-')
@@ -189,7 +189,7 @@ for region in regions_data_list:
             region['deceduti'].iloc[i]-region['deceduti'].iloc[i-1]
             )
 
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (days after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(days, region['nuovi_positivi'], c='orange', linestyle='-')
     plt.plot(days, new_healed, c='limegreen', linestyle='-')
@@ -200,7 +200,7 @@ for region in regions_data_list:
     plt.savefig('./region-others/'+nome+'-curves-2.png', dpi = 250)
     plt.clf()
 
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (days after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(days, region['isolamento_domiciliare'], c='goldenrod', linestyle='-')
     plt.plot(days, region['totale_ospedalizzati'], c='darkred', linestyle='-')
@@ -211,7 +211,7 @@ for region in regions_data_list:
     plt.savefig('./region-others/'+nome+'-curves-3.png', dpi = 250)
     plt.clf()
 
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (days after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(days, region['totale_ospedalizzati'], c='darkred', linestyle='-')
     plt.plot(days, region['ricoverati_con_sintomi'], c='purple', linestyle='-')
@@ -233,7 +233,7 @@ for region in regions_data_list:
             growth_factor.append(n1/n0)
 
     # growth factor
-    plt.xlabel('Time (days after 24/02)')
+    plt.xlabel('Time (days after 24/02/2020)')
     plt.ylabel('Growth Factor in '+nome)
     plt.title('Growth Factor [N(t+1)/N(t)] in '+nome)
     plt.plot(days[1:], growth_factor, 'ko')

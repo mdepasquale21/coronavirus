@@ -47,7 +47,7 @@ for df in regions_data_list:
     print('Calculating average every',time,'days')
     ave_df = df.drop('denominazione_regione',axis=1).groupby(np.arange(len(df))//time, axis=0).mean()
 
-    plt.xlabel('Time (weeks after 24/02)')
+    plt.xlabel('Time (weeks after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(weeks, ave_df['totale_casi'], c='red', linestyle='-')
     plt.plot(weeks, ave_df['totale_positivi'], c='pink', linestyle='-')
@@ -78,7 +78,7 @@ for df in regions_data_list:
             ave_df['deceduti'].iloc[i]-ave_df['deceduti'].iloc[i-1]
             )
 
-    plt.xlabel('Time (weeks after 24/02)')
+    plt.xlabel('Time (weeks after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(weeks, ave_df['nuovi_positivi'], c='orange', linestyle='-')
     plt.plot(weeks, new_healed, c='limegreen', linestyle='-')
@@ -89,7 +89,7 @@ for df in regions_data_list:
     plt.savefig('./regions-average/'+nome+'-curves-2.png', dpi = 250)
     plt.clf()
 
-    plt.xlabel('Time (weeks after 24/02)')
+    plt.xlabel('Time (weeks after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(weeks, ave_df['isolamento_domiciliare'], c='goldenrod', linestyle='-')
     plt.plot(weeks, ave_df['totale_ospedalizzati'], c='darkred', linestyle='-')
@@ -100,7 +100,7 @@ for df in regions_data_list:
     plt.savefig('./regions-average/'+nome+'-curves-3.png', dpi = 250)
     plt.clf()
 
-    plt.xlabel('Time (weeks after 24/02)')
+    plt.xlabel('Time (weeks after 24/02/2020)')
     plt.ylabel('Values for '+nome)
     plt.plot(weeks, ave_df['totale_ospedalizzati'], c='darkred', linestyle='-')
     plt.plot(weeks, ave_df['ricoverati_con_sintomi'], c='purple', linestyle='-')
@@ -122,7 +122,7 @@ for df in regions_data_list:
             growth_factor.append(n1/n0)
 
     # growth factor
-    plt.xlabel('Time (weeks after 24/02)')
+    plt.xlabel('Time (weeks after 24/02/2020)')
     plt.ylabel('Growth Factor in '+nome)
     plt.title('Growth Factor [N(t+1)/N(t)] in '+nome)
     plt.plot(weeks[1:], growth_factor, 'ko')

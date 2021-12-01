@@ -35,11 +35,11 @@ dataset.info()
 ################################################################################################################################
 
 # yesterday
-yesterday='2020-12-05T17:00:00'
+yesterday='2021-11-30T17:00:00'
 yesterday_tot_cases = dataset.loc[dataset['data']==yesterday][['denominazione_provincia','totale_casi']]
 
 # today
-last_date = '2020-12-06T17:00:00'
+last_date = '2021-12-01T17:00:00'
 last_tot_cases = dataset.loc[dataset['data']==last_date][['denominazione_provincia','totale_casi']]
 
 # trieste
@@ -88,7 +88,7 @@ report_g.close()
 days = [t[0] for t in enumerate(np.unique(dataset['data']))]
 tot_ts = dataset.loc[dataset['denominazione_provincia']=='Trieste']['totale_casi']
 
-plt.xlabel('Time (days after 24/02)')
+plt.xlabel('Time (days after 24/02/2020)')
 plt.ylabel('Total Cases')
 plt.title('Total Cases in Trieste')
 plt.plot(days, tot_ts, c='red', linestyle='-')
@@ -100,7 +100,7 @@ fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
 plt.ylabel('Total Cases')
 plt.xticks(rotation=90)
-plt.xlabel('Time (days after 24/02)')
+plt.xlabel('Time (days after 24/02/2020)')
 plt.title('Total Cases in Trieste')
 plt.grid(linestyle='--', linewidth=0.2, color='lightgrey')
 for j,f in zip(days, tot_ts):
